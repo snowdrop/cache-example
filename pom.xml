@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+      <groupId>io.openshift.booster</groupId>
+      <artifactId>spring-boot-booster-parent</artifactId>
+      <version>2</version>
+    </parent>
+
+    <artifactId>spring-boot-caching-parent</artifactId>
+    <version>1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>Spring Boot - Caching Booster</name>
+    <description>Spring Boot - Caching Booster</description>
+
+    <properties>
+    </properties>
+
+    <modules>
+        <module>greeting-service</module>
+        <module>cute-name-service</module>
+    </modules>
+
+</project>
