@@ -24,11 +24,12 @@ import org.springframework.web.client.RestTemplate;
 @Component
 public class CacheableNameService implements NameService {
 
-    private final RestTemplate restTemplate = new RestTemplate();
-
+    private final RestTemplate restTemplate;
     private final String nameServiceBaseURL;
 
-    public CacheableNameService(@Value("${service.name.baseURL}") String nameServiceBaseURL) {
+    public CacheableNameService(RestTemplate restTemplate,
+                                @Value("${service.name.baseURL}") String nameServiceBaseURL) {
+        this.restTemplate = restTemplate;
         this.nameServiceBaseURL = nameServiceBaseURL;
     }
 

@@ -19,6 +19,8 @@ package io.openshift.booster;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * Entry point to the application.
@@ -31,5 +33,10 @@ public class BoosterApplication {
         SpringApplication.run(BoosterApplication.class, args);
     }
 
+
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
 }
 
