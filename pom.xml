@@ -10,19 +10,19 @@
       <version>2</version>
     </parent>
 
-    <artifactId>spring-boot-caching-parent</artifactId>
+    <artifactId>spring-boot-cache-parent</artifactId>
     <version>1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>Spring Boot - Caching Booster</name>
-    <description>Spring Boot - Caching Booster</description>
+    <name>Spring Boot - Cache Booster</name>
+    <description>Spring Boot - Cache Booster</description>
 
     <properties>
     </properties>
 
     <modules>
-        <module>greeting-service</module>
         <module>cute-name-service</module>
+        <module>greeting-service</module>
     </modules>
 
 </project>

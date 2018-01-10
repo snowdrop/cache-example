@@ -5,15 +5,15 @@
 
     <parent>
         <groupId>io.openshift.booster</groupId>
-        <artifactId>spring-boot-caching-parent</artifactId>
+        <artifactId>spring-boot-cache-parent</artifactId>
         <version>1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>greeting-service</artifactId>
+    <artifactId>spring-boot-cache-greeting</artifactId>
     <version>1-SNAPSHOT</version>
 
-    <name>Spring Boot - Caching Booster - Greeting Service</name>
-    <description>Spring Boot - Caching Booster - Greeting Service</description>
+    <name>Spring Boot - Cache Booster - Greeting Service</name>
+    <description>Spring Boot - Cache Booster - Greeting Service</description>
 
     <properties>
         <version.infinispan.starter>2.0.0.Alpha1</version.infinispan.starter>
@@ -70,22 +70,6 @@
                     <version>${version.infinispan.starter}</version>
                 </dependency>
             </dependencies>
-            <!--<build>-->
-                <!--<plugins>-->
-                    <!--<plugin>-->
-                        <!--<groupId>io.fabric8</groupId>-->
-                        <!--<artifactId>fabric8-maven-plugin</artifactId>-->
-                        <!--<executions>-->
-                            <!--<execution>-->
-                                <!--<goals>-->
-                                    <!--<goal>resource</goal>-->
-                                    <!--<goal>build</goal>-->
-                                <!--</goals>-->
-                            <!--</execution>-->
-                        <!--</executions>-->
-                    <!--</plugin>-->
-                <!--</plugins>-->
-            <!--</build>-->
         </profile>
     </profiles>
 </project>
