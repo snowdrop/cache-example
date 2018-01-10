@@ -10,7 +10,6 @@
     </parent>
 
     <artifactId>spring-boot-cache-greeting</artifactId>
-    <version>1-SNAPSHOT</version>
 
     <name>Spring Boot - Cache Booster - Greeting Service</name>
     <description>Spring Boot - Cache Booster - Greeting Service</description>

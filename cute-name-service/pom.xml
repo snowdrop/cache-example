@@ -10,7 +10,6 @@
     </parent>
 
     <artifactId>spring-boot-cache-cutename</artifactId>
-    <version>1.0-SNAPSHOT</version>
 
     <name>Spring Boot - Cache Booster - Cute Name Service</name>
     <description>Spring Boot - Cache Booster - Cute Name Service</description>
