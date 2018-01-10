@@ -16,13 +16,10 @@
 
 package io.openshift.booster.service;
 
-import io.openshift.booster.BoosterApplication;
+import io.openshift.booster.AbstractSpringCachingTest;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
 import static org.mockito.Matchers.any;
@@ -32,13 +29,8 @@ import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(
-        classes = BoosterApplication.class,
-        webEnvironment = SpringBootTest.WebEnvironment.MOCK,
-        properties = {"cache.expiration.millis=200"}
-)
-public class CacheableNameServiceTest {
+
+public class CacheableNameServiceTest extends AbstractSpringCachingTest {
 
     @MockBean
     private RestTemplate restTemplate;
@@ -61,8 +53,7 @@ public class CacheableNameServiceTest {
         //assert cache hit
         verify(restTemplate, never()).getForObject(anyString(), any(Class.class));
 
-        //sleep long enough for cache entry to expire
-        sleep();
+        sleepLongEnoughForCacheToExpire();
 
         //invoke the first time
         nameService.getName();
@@ -70,9 +61,4 @@ public class CacheableNameServiceTest {
         verify(restTemplate, times(1)).getForObject(anyString(), any(Class.class));
     }
 
-    private void sleep()  {
-        try {
-            Thread.sleep(250);
-        } catch (InterruptedException ignored) {}
-    }
 }

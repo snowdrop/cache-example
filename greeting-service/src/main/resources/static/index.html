@@ -46,10 +46,8 @@
                 <h2>Greeting service</h2>
                 <div id="cache-state"></div>
                 <button id="invoke" type="submit" class="btn btn-primary">Invoke</button>
+                <button id="clear" type="submit" class="btn btn-warning">Clear Cache</button>
                 <h3>Results:</h3>
-                <form class="form-inline">
-                    <button id="clear" type="submit" class="btn btn-success">Clear</button>
-                </form>
                 <pre style="min-height:20em;"><code id="greeting-result"></code></pre>
             </div>
 
@@ -75,12 +73,13 @@
             });
 
             $("#clear").click(function(e) {
-                $("#greeting-result").html("");
-                e.preventDefault();
-            });
-
-            $("#clear-requests").click(function(e) {
-                $("#name-requests").html("");
+                $.ajax({
+                    url: '/api/greeting',
+                    type: 'DELETE',
+                    success: function(result) {
+                        // Do something with the result
+                    }
+                });
                 e.preventDefault();
             });
 

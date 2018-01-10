@@ -21,10 +21,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import static io.openshift.booster.CacheConstants.NAME_CACHE_ID;
+
 @Configuration
 public class CacheConfiguration {
 
-    @Bean(name = "namesCache")
+    @Bean(NAME_CACHE_ID)
     public org.infinispan.configuration.cache.Configuration smallCache(
             @Value("${cache.expiration.millis:1000}") Integer expirationMillis) {
         return new ConfigurationBuilder()

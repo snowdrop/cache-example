@@ -14,22 +14,30 @@
  * limitations under the License.
  */
 
-package io.openshift.booster;
+package io.openshift.booster.service;
 
-import org.infinispan.spring.provider.SpringEmbeddedCacheManager;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
+import org.springframework.stereotype.Component;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static io.openshift.booster.CacheConstants.NAME_CACHE_ID;
 
-public class InfinispanCacheConfiguredTest extends AbstractSpringCachingTest{
+/**
+ * Provides utility methods relating to the name cache
+ */
+@Component
+public class NameCacheUtil {
 
-    @Autowired
-    private CacheManager cacheManager;
+    private final Cache nameCache;
 
-    @Test
-    public void configuredCacheManagerIsInfinispanEmbeddedCacheManager() {
-        assertThat(cacheManager).isNotNull().isInstanceOf(SpringEmbeddedCacheManager.class);
+    public NameCacheUtil(CacheManager cacheManager) {
+        nameCache = cacheManager.getCache(NAME_CACHE_ID);
+    }
+
+    /**
+     * Clears all entries found in nameCache
+     */
+    public void clear() {
+        nameCache.clear();
     }
 }

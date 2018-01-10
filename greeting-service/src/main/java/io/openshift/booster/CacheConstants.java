@@ -16,20 +16,10 @@
 
 package io.openshift.booster;
 
-import org.infinispan.spring.provider.SpringEmbeddedCacheManager;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.CacheManager;
+public final class CacheConstants {
 
-import static org.assertj.core.api.Assertions.assertThat;
+    public static final String NAME_CACHE_ID = "nameCache";
 
-public class InfinispanCacheConfiguredTest extends AbstractSpringCachingTest{
 
-    @Autowired
-    private CacheManager cacheManager;
-
-    @Test
-    public void configuredCacheManagerIsInfinispanEmbeddedCacheManager() {
-        assertThat(cacheManager).isNotNull().isInstanceOf(SpringEmbeddedCacheManager.class);
-    }
+    private CacheConstants() {}
 }

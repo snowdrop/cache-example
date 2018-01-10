@@ -21,6 +21,8 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import static io.openshift.booster.CacheConstants.NAME_CACHE_ID;
+
 @Component
 public class CacheableNameService implements NameService {
 
@@ -33,7 +35,7 @@ public class CacheableNameService implements NameService {
         this.nameServiceBaseURL = nameServiceBaseURL;
     }
 
-    @Cacheable("namesCache")
+    @Cacheable(NAME_CACHE_ID)
     @Override
     public String getName() {
         return restTemplate.getForObject(nameServiceBaseURL + "/api/name", String.class);

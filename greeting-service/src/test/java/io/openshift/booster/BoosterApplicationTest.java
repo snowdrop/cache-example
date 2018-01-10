@@ -17,6 +17,7 @@
 package io.openshift.booster;
 
 import io.openshift.booster.service.GreetingController;
+import io.openshift.booster.service.NameCacheUtil;
 import io.openshift.booster.service.NameService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,6 +29,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -43,6 +45,10 @@ public class BoosterApplicationTest {
     @MockBean
     private NameService nameService;
 
+    //although not used in the class directly, this is needed so Spring can create a mock instead of the real bean
+    @MockBean
+    private NameCacheUtil nameCacheUtil;
+
     @Test
     public void getGreeting() throws Exception{
         final String name = "cute";
@@ -51,5 +57,11 @@ public class BoosterApplicationTest {
         mvc.perform(get("/api/greeting"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content", containsString(name)));
+    }
+
+    @Test
+    public void deleteCache() throws Exception{
+        mvc.perform(delete("/api/greeting"))
+                .andExpect(status().isNoContent());
     }
 }
