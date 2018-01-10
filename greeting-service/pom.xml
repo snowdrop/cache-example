@@ -51,13 +51,10 @@
         </profile>
         <profile>
             <id>openshift</id>
-            <properties>
-                <greeting.endpoint>greeting-service:8080</greeting.endpoint>
-            </properties>
             <dependencies>
                 <dependency>
                     <groupId>org.infinispan</groupId>
-                    <artifactId>infinispan-spring-boot-starter-remote</artifactId>
+                    <artifactId>infinispan-spring-boot-starter-embedded</artifactId>
                     <version>${version.infinispan.starter}</version>
                 </dependency>
             </dependencies>
