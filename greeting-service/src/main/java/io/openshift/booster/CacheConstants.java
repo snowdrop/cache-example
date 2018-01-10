@@ -18,7 +18,7 @@ package io.openshift.booster;
 
 public final class CacheConstants {
 
-    public static final String NAME_CACHE_ID = "nameCache";
+    public static final String NAME_CACHE_ID = "default";
 
 
     private CacheConstants() {}

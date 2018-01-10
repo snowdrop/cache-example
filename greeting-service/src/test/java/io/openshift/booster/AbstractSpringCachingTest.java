@@ -21,13 +21,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(
-        classes = BoosterApplication.class,
-        webEnvironment = SpringBootTest.WebEnvironment.MOCK,
-        properties = {"cache.expiration.millis=200"}
-)
+@SpringBootTest(classes = BoosterApplication.class, webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 public abstract class AbstractSpringCachingTest {
 
+    //needs to be larger than the value specified in infinispan-conf.xml
     protected static final int MILLIS_LARGER_THAN_CACHE_EXPIRATION = 250;
 
     protected void sleepLongEnoughForCacheToExpire()  {

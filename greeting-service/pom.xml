@@ -33,6 +33,14 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!-- Needed to force the tests to work in embedded mode -->
+        <dependency>
+            <groupId>org.infinispan</groupId>
+            <artifactId>infinispan-spring-boot-starter-embedded</artifactId>
+            <version>${version.infinispan.starter}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <profiles>
@@ -54,26 +62,26 @@
             <dependencies>
                 <dependency>
                     <groupId>org.infinispan</groupId>
-                    <artifactId>infinispan-spring-boot-starter-embedded</artifactId>
+                    <artifactId>infinispan-spring-boot-starter-remote</artifactId>
                     <version>${version.infinispan.starter}</version>
                 </dependency>
             </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>io.fabric8</groupId>
-                        <artifactId>fabric8-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>resource</goal>
-                                    <goal>build</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
+            <!--<build>-->
+                <!--<plugins>-->
+                    <!--<plugin>-->
+                        <!--<groupId>io.fabric8</groupId>-->
+                        <!--<artifactId>fabric8-maven-plugin</artifactId>-->
+                        <!--<executions>-->
+                            <!--<execution>-->
+                                <!--<goals>-->
+                                    <!--<goal>resource</goal>-->
+                                    <!--<goal>build</goal>-->
+                                <!--</goals>-->
+                            <!--</execution>-->
+                        <!--</executions>-->
+                    <!--</plugin>-->
+                <!--</plugins>-->
+            <!--</build>-->
         </profile>
     </profiles>
 </project>

@@ -56,7 +56,7 @@ public class BoosterApplicationTest {
 
         mvc.perform(get("/api/greeting"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.content", containsString(name)));
+                .andExpect(jsonPath("$.message", containsString(name)));
     }
 
     @Test

@@ -45,14 +45,14 @@ public class GreetingController {
     }
 
     static class Greeting {
-        private final String content;
+        private final String message;
 
-        public Greeting(String content) {
-            this.content = content;
+        public Greeting(String message) {
+            this.message = message;
         }
 
-        public String getContent() {
-            return content;
+        public String getMessage() {
+            return message;
         }
     }
 }

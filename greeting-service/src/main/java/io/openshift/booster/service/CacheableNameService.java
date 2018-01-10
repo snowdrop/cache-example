@@ -30,7 +30,7 @@ public class CacheableNameService implements NameService {
     private final String nameServiceBaseURL;
 
     public CacheableNameService(RestTemplate restTemplate,
-                                @Value("${service.name.baseURL}") String nameServiceBaseURL) {
+                                @Value("${service.name.baseURL:test}") String nameServiceBaseURL) {
         this.restTemplate = restTemplate;
         this.nameServiceBaseURL = nameServiceBaseURL;
     }

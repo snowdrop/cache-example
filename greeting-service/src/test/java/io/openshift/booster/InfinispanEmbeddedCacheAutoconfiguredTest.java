@@ -16,19 +16,20 @@
 
 package io.openshift.booster;
 
-import org.infinispan.configuration.global.GlobalConfigurationBuilder;
-import org.infinispan.spring.starter.embedded.InfinispanGlobalConfigurationCustomizer;
-import org.springframework.stereotype.Component;
+import org.infinispan.spring.provider.SpringEmbeddedCacheManager;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 
-/**
- * This is only needed in the tests where the Cache beans can be created multiple times
- * In such cases we need to allow multiple registration of JMX beans
- */
-@Component
-public class JmxInfinispanGlobalConfigurationCustomizer implements InfinispanGlobalConfigurationCustomizer {
+import static org.assertj.core.api.Assertions.assertThat;
 
-    @Override
-    public void cusomize(GlobalConfigurationBuilder builder) {
-        builder.globalJmxStatistics().allowDuplicateDomains(Boolean.TRUE);
+public class InfinispanEmbeddedCacheAutoconfiguredTest extends AbstractSpringCachingTest{
+
+    @Autowired
+    private CacheManager cacheManager;
+
+    @Test
+    public void configuredCacheManagerIsInfinispanEmbeddedCacheManager() {
+        assertThat(cacheManager).isNotNull().isInstanceOf(SpringEmbeddedCacheManager.class);
     }
 }
