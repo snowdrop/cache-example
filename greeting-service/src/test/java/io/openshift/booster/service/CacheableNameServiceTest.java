@@ -43,7 +43,7 @@ public class CacheableNameServiceTest extends AbstractSpringCachingTest {
         //invoke the first time
         nameService.getName();
         //assert no cache hit
-        verify(restTemplate, times(1)).getForObject(anyString(), any(Class.class));
+        verifyCacheMiss();
 
         //reset the mock so we can test if there were any new invocations
         reset(restTemplate);
@@ -58,6 +58,10 @@ public class CacheableNameServiceTest extends AbstractSpringCachingTest {
         //invoke the first time
         nameService.getName();
         //assert no cache hit
+        verifyCacheMiss();
+    }
+
+    private void verifyCacheMiss() {
         verify(restTemplate, times(1)).getForObject(anyString(), any(Class.class));
     }
 
