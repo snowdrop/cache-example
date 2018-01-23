@@ -16,6 +16,7 @@
 
 package io.openshift.booster.service;
 
+import org.infinispan.commons.api.BasicCache;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Component;
@@ -28,16 +29,22 @@ import static io.openshift.booster.CacheConstants.NAME_CACHE_ID;
 @Component
 public class NameCacheUtil {
 
-    private final Cache nameCache;
+    private final Cache springCache;
+    private final BasicCache<String, String> infispanCache;
 
     public NameCacheUtil(CacheManager cacheManager) {
-        nameCache = cacheManager.getCache(NAME_CACHE_ID);
+        springCache = cacheManager.getCache(NAME_CACHE_ID);
+        infispanCache = (BasicCache<String, String>) springCache.getNativeCache();
     }
 
     /**
      * Clears all entries found in nameCache
      */
     public void clear() {
-        nameCache.clear();
+        springCache.clear();
+    }
+
+    public boolean isEmpty() {
+        return infispanCache.isEmpty();
     }
 }

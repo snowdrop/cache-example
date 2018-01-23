@@ -44,6 +44,11 @@ public class GreetingController {
         nameCacheUtil.clear();
     }
 
+    @GetMapping("/api/cached")
+    public String isCached() {
+        return String.format("{\"cached\": %b}", !nameCacheUtil.isEmpty());
+    }
+
     static class Greeting {
         private final String message;
 

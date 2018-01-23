@@ -28,6 +28,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -45,7 +46,6 @@ public class BoosterApplicationTest {
     @MockBean
     private NameService nameService;
 
-    //although not used in the class directly, this is needed so Spring can create a mock instead of the real bean
     @MockBean
     private NameCacheUtil nameCacheUtil;
 
@@ -63,5 +63,14 @@ public class BoosterApplicationTest {
     public void deleteCache() throws Exception{
         mvc.perform(delete("/api/greeting"))
                 .andExpect(status().isNoContent());
+    }
+
+    @Test
+    public void isCached() throws Exception{
+        given(nameCacheUtil.isEmpty()).willReturn(true);
+
+        mvc.perform(get("/api/cached"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.cached", is(false)));
     }
 }

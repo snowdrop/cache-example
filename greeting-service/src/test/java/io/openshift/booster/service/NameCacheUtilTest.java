@@ -58,6 +58,21 @@ public class NameCacheUtilTest extends AbstractSpringCachingTest {
         assertThat(namesCache.get(TEST_KEY)).isNull();
     }
 
+    @Test
+    public void verifyIsEmptyWorks() {
+        //when
+        nameCacheUtil.clear();
+
+        //then
+        assertThat(nameCacheUtil.isEmpty()).isTrue();
+
+        //when
+        getNamesCache().put(TEST_KEY, "value");
+
+        //then
+        assertThat(nameCacheUtil.isEmpty()).isFalse();
+    }
+
     private Cache getNamesCache() {
         return cacheManager.getCache(NAME_CACHE_ID);
     }
