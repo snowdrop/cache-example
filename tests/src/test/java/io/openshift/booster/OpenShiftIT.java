@@ -39,15 +39,19 @@ public class OpenShiftIT {
     private URL greetingBaseURI;
 
     private String greetingServiceURI;
+    private String setTtlServiceURI;
 
     @Before
     public void setup() {
         greetingServiceURI = greetingBaseURI + "api/greeting";
+        setTtlServiceURI = greetingBaseURI + "api/ttl/{ttl}";
         waitForApp(greetingBaseURI + "health");
+
+        clearCache();
     }
 
     @Test
-    public void testGreetingEndpoint() {
+    public void testSimpleInteraction() {
         final String messageFromFirstInvocation = getMessageFromGreetingService();
         final String messageFromSecondInvocation = getMessageFromGreetingService();
 
@@ -60,13 +64,36 @@ public class OpenShiftIT {
 
         //the two messages should be different since the cache was cleared
         assertThat(messageFromThirdInvocation).isNotEqualToIgnoringCase(messageFromSecondInvocation);
+    }
 
-        sleepLongEnoughForCacheToExpire();
+    @Test
+    public void testWaitForCacheToExpire() {
+        final String messageFromFirstInvocation = getMessageFromGreetingService();
 
-        final String messageFromFourthInvocation = getMessageFromGreetingService();
+        waitForCacheToExpire(6); //since we haven't changed anything, the default ttl is 5 seconds
+
+        final String messageFromSecondInvocation = getMessageFromGreetingService();
 
         //the two messages should be different since the cache entry expired
-        assertThat(messageFromFourthInvocation).isNotEqualToIgnoringCase(messageFromThirdInvocation);
+        assertThat(messageFromSecondInvocation).isNotEqualToIgnoringCase(messageFromFirstInvocation);
+    }
+
+    @Test
+    public void testTtlHandling() {
+        final int ttl = 1;
+        setTtl(ttl);
+
+        final String messageFromFirstInvocation = getMessageFromGreetingService();
+        final String messageFromSecondInvocation = getMessageFromGreetingService();
+
+        //the two messages should be the same since the name should have been served from the cache
+        assertThat(messageFromFirstInvocation).isEqualTo(messageFromSecondInvocation);
+
+        waitForCacheToExpire(ttl + 1);
+
+        final String messageFromThirdInvocationAfterLowTtlSet = getMessageFromGreetingService();
+        assertThat(messageFromThirdInvocationAfterLowTtlSet)
+                .isNotEqualToIgnoringCase(messageFromSecondInvocation);
     }
 
     private void waitForApp(String uri) {
@@ -99,9 +126,15 @@ public class OpenShiftIT {
                 .statusCode(204);
     }
 
-    private void sleepLongEnoughForCacheToExpire() {
+    private void setTtl(int seconds) {
+        when().post(setTtlServiceURI, seconds)
+                .then()
+                .statusCode(200);
+    }
+
+    private void waitForCacheToExpire(int seconds) {
         try {
-            Thread.sleep(11000);
+            Thread.sleep(seconds * 1000);
         } catch (InterruptedException ignored) {}
     }
 

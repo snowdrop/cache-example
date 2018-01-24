@@ -16,8 +16,10 @@
 
 package io.openshift.booster;
 
+import io.openshift.booster.ttl.TtlProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
@@ -27,6 +29,7 @@ import org.springframework.web.client.RestTemplate;
  */
 @SpringBootApplication
 @EnableCaching
+@EnableConfigurationProperties(TtlProperties.class)
 public class BoosterApplication {
 
     public static void main(String[] args) {

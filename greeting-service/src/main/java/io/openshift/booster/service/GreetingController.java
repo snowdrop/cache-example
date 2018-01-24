@@ -16,9 +16,12 @@
 
 package io.openshift.booster.service;
 
+import io.openshift.booster.ttl.TtlProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,10 +30,12 @@ public class GreetingController {
 
     private final NameService nameService;
     private final NameCacheUtil nameCacheUtil;
+    private final TtlProperties ttlProperties;
 
-    public GreetingController(NameService nameService, NameCacheUtil nameCacheUtil) {
+    public GreetingController(NameService nameService, NameCacheUtil nameCacheUtil, TtlProperties ttlProperties) {
         this.nameService = nameService;
         this.nameCacheUtil = nameCacheUtil;
+        this.ttlProperties = ttlProperties;
     }
 
     @GetMapping("/api/greeting")
@@ -47,6 +52,12 @@ public class GreetingController {
     @GetMapping("/api/cached")
     public String isCached() {
         return String.format("{\"cached\": %b}", !nameCacheUtil.isEmpty());
+    }
+
+    @PostMapping("/api/ttl/{ttl}")
+    public String setTtl(@PathVariable("ttl") int ttl) {
+        ttlProperties.setValue(ttl);
+        return String.format("{\"ttl\": %d}", ttl);
     }
 
     static class Greeting {

@@ -32,6 +32,7 @@ import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -72,5 +73,12 @@ public class BoosterApplicationTest {
         mvc.perform(get("/api/cached"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.cached", is(false)));
+    }
+
+    @Test
+    public void setTtl() throws Exception{
+        mvc.perform(post("/api/ttl/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.ttl", is(1)));
     }
 }
