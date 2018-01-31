@@ -1,0 +1,56 @@
+== Purpose
+
+The​ ​ purpose​ ​ of​ ​ this​ ​ use​ ​ case​ ​ is​ ​ to​ ​ demonstrate​ ​ how​ ​ to​ ​ use​ ​ Red​ ​ Hat​ ​ JBoss​ ​ Data​ ​ Grid​ ​ for
+Openshift​ ​ as​ ​ a ​ ​ cache,​ ​ to​ ​ increase​ ​ the​ ​ response​ ​ time​ ​ of​ ​ applications.
+This​ ​ mission​ ​ covers:
+
+ * The​ ​ deployment​ ​ of​ ​ the​ ​ Red​ ​ Hat​ ​ JBoss​ ​ Data​ ​ Grid​ ​ on​ ​ OpenShift
+ * How​ ​ applications​ ​ leverage​ ​ this​ ​ cache​ ​ service
+
+== Technical details
+
+TODO
+
+== Deploying and interacting with the booster
+
+
+- Create a new OpenShift project `cache-booster` (or whatever you want to call it):
+
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ oc new-project cache-booster
+----
+
+- Ensure that JBoss Datagrid has the appropriate permissions
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ oc policy add-role-to-user view system:serviceaccount:$(oc project -q):default -n $(oc project -q)
+$ oc policy add-role-to-user view system:serviceaccount:$(oc project -q):eap-service-account -n $(oc project -q)
+----
+
+- Build and deploy the Spring Boot application using the Fabric8 Maven Plugin <<fmp>>
+
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ mvn clean fabric8:deploy -Popenshift
+----
+
+- Open the UI of the `greeting-service`. The URL can be determined by executing
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ oc get route/spring-boot-cache-greeting --template={{.spec.host}}
+----
+
+From the UI the user can invoke the `greeting-service` which in turn invokes the JBoss Datagrid and perhaps the `name-service`
+depending on the state of the cache
+
+- Execute the integration test to verify the behavior of the system
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ mvn clean verify -Popenshift,openshift-it --projects tests
+----
+
+[bibliography]
+== References
+
+- [[[mini,1]]] Minishift: https://docs.openshift.org/latest/minishift/index.html
