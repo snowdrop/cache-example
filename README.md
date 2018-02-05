@@ -25,5 +25,5 @@ mvn clean fabric8:deploy -Popenshift
 An integration test can be run to verify the behavior of the system by executing
 
 ```bash
-mvn clean verify -Popenshift,openshift-it --projects tests
+mvn clean verify -Popenshift,openshift-it
 ```
