@@ -39,7 +39,7 @@ public class GreetingController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/api/greeting")
+    @DeleteMapping("/api/cached")
     public void deleteCache() {
         nameCacheUtil.clear();
     }

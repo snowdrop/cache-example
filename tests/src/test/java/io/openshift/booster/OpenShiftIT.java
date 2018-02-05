@@ -39,10 +39,12 @@ public class OpenShiftIT {
     private URL greetingBaseURI;
 
     private String greetingServiceURI;
+    private String cacheServiceURI;
 
     @Before
     public void setup() {
         greetingServiceURI = greetingBaseURI + "api/greeting";
+        cacheServiceURI = greetingBaseURI + "api/cached";
         waitForApp(greetingBaseURI + "health");
 
         clearCache();
@@ -101,7 +103,7 @@ public class OpenShiftIT {
     }
 
     private void clearCache() {
-        when().delete(greetingServiceURI)
+        when().delete(cacheServiceURI)
                 .then()
                 .statusCode(204);
     }

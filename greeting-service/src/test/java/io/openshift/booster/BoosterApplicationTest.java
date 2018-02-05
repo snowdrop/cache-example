@@ -61,7 +61,7 @@ public class BoosterApplicationTest {
 
     @Test
     public void deleteCache() throws Exception{
-        mvc.perform(delete("/api/greeting"))
+        mvc.perform(delete("/api/cached"))
                 .andExpect(status().isNoContent());
     }
 

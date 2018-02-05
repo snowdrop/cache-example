@@ -74,7 +74,7 @@
 
             $("#clear").click(function(e) {
                 $.ajax({
-                    url: '/api/greeting',
+                    url: '/api/cached',
                     type: 'DELETE',
                     success: function(result) {
                         // Do something with the result
