@@ -66,8 +66,12 @@
         $(document).ready(function() {
 
             $("#invoke").click(function(e) {
+                var start = new Date();
                 $.getJSON("/api/greeting", function(res) {
-                    $("#greeting-result").prepend(JSON.stringify(res) + "\n");
+                    var end = new Date();
+                    var jsonResultStr = JSON.stringify(res);
+                    var fullResultLine = jsonResultStr + " - duration: " + (end - start) + "ms\n";
+                    $("#greeting-result").prepend(fullResultLine);
                 });
                 e.preventDefault();
             });
