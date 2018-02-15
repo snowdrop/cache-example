@@ -36,7 +36,7 @@ $ oc apply -f greeting-service/.openshiftio/cacheserver.yml
 ----
 
 
-- Build and deploy the Spring Boot application using the Fabric8 Maven Plugin <<fmp>>
+- Build and deploy the Spring Boot application using the Fabric8 Maven Plugin
 
 [source,bash,options="nowrap",subs="attributes+"]
 ----
