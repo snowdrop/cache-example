@@ -13,7 +13,7 @@ The first step is to start JBoss Datagrid on Openshift
 ```bash
 oc policy add-role-to-user view system:serviceaccount:$(oc project -q):default -n $(oc project -q)
 oc policy add-role-to-user view system:serviceaccount:$(oc project -q):eap-service-account -n $(oc project -q)
-oc new-app --name=cache-server --image-stream=jboss-datagrid71-openshift:1.1  -e INFINISPAN_CONNECTORS=hotrod -e DEFAULT_CACHE_EVICTION_MAX_ENTRIES=10 -e DEFAULT_CACHE_EXPIRATION_LIFESPAN=10000
+oc apply -f greeting-service/.openshiftio/cacheserver.yml
 ```
 
 Once JBoss Datagrid has been deployed, execute the following to deploy the apps
