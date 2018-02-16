@@ -55,5 +55,5 @@ depending on the state of the cache
 - Execute the integration test to verify the behavior of the system
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-$ mvn clean verify -Popenshift,openshift-it --projects tests
+$ mvn clean verify -Popenshift,openshift-it
 ----
