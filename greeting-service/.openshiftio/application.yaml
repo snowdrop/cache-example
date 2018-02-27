@@ -108,7 +108,7 @@ objects:
     labels:
       expose: "true"
       app: spring-boot-cache-greeting
-      provider: fabric8
+      provider: snowdrop
       version: "10"
       group: io.openshift.booster
     name: spring-boot-cache-greeting
@@ -120,7 +120,7 @@ objects:
       targetPort: 8080
     selector:
       app: spring-boot-cache-greeting
-      provider: fabric8
+      provider: snowdrop
       group: io.openshift.booster
 - apiVersion: v1
   kind: DeploymentConfig
@@ -135,7 +135,7 @@ objects:
       fabric8.io/scm-tag: booster-parent-11
     labels:
       app: spring-boot-cache-greeting
-      provider: fabric8
+      provider: snowdrop
       version: "10"
       group: io.openshift.booster
     name: spring-boot-cache-greeting
@@ -144,7 +144,7 @@ objects:
     revisionHistoryLimit: 2
     selector:
       app: spring-boot-cache-greeting
-      provider: fabric8
+      provider: snowdrop
       group: io.openshift.booster
     strategy:
       rollingParams:
@@ -162,7 +162,7 @@ objects:
           fabric8.io/scm-tag: booster-parent-11
         labels:
           app: spring-boot-cache-greeting
-          provider: fabric8
+          provider: snowdrop
           version: "10"
           group: io.openshift.booster
       spec:
@@ -214,7 +214,7 @@ objects:
   metadata:
     labels:
       app: spring-boot-cache-greeting
-      provider: fabric8
+      provider: snowdrop
       version: "10"
       group: io.openshift.booster
     name: spring-boot-cache-greeting
