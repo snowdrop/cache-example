@@ -45,8 +45,8 @@ public class GreetingController {
     }
 
     @GetMapping("/api/cached")
-    public String isCached() {
-        return String.format("{\"cached\": %b}", !nameCacheUtil.isEmpty());
+    public CacheStatus isCached() {
+        return new CacheStatus(!nameCacheUtil.isEmpty());
     }
 
     static class Greeting {
@@ -58,6 +58,18 @@ public class GreetingController {
 
         public String getMessage() {
             return message;
+        }
+    }
+
+    static class CacheStatus {
+        private final boolean cached;
+
+        public CacheStatus(boolean cached) {
+            this.cached = cached;
+        }
+
+        public boolean isCached() {
+            return cached;
         }
     }
 }
