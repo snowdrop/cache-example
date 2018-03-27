@@ -7,9 +7,9 @@ metadata:
     tags: spring-boot, circuit breaker, java, microservice
     openshift.io/display-name: Spring Boot - Name Service managed by the Circuit Breaker
     openshift.io/provider-display-name: "Red Hat, Inc."
-    openshift.io/documentation-url: "https://appdev.prod-preview.openshift.io/docs/spring-boot-runtime.html#mission-name-spring-boot-tomcat"
+    openshift.io/documentation-url: "https://appdev.prod-preview.openshift.io/docs/spring-boot-runtime.html#mission-cache-spring-boot"
     description: >-
-      This template creates a Build Configuration using an S2I builder.
+      The Cache Service Mission demonstrates caching with Infinispan.
 parameters:
 - name: SOURCE_REPOSITORY_URL
   description: The source URL for the application
