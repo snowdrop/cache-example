@@ -18,6 +18,7 @@ package io.openshift.booster;
 
 import com.jayway.restassured.response.ExtractableResponse;
 import com.jayway.restassured.response.Response;
+import org.arquillian.cube.openshift.impl.enricher.AwaitRoute;
 import org.arquillian.cube.openshift.impl.enricher.RouteURL;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Before;
@@ -25,17 +26,16 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.net.URL;
-import java.util.concurrent.TimeUnit;
 
-import static com.jayway.awaitility.Awaitility.await;
-import static com.jayway.restassured.RestAssured.get;
 import static com.jayway.restassured.RestAssured.when;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.core.Is.is;
 
 @RunWith(Arquillian.class)
 public class OpenShiftIT {
 
     @RouteURL("spring-boot-cache-greeting")
+    @AwaitRoute(path = "/health")
     private URL greetingBaseURI;
 
     private String greetingServiceURI;
@@ -45,7 +45,6 @@ public class OpenShiftIT {
     public void setup() {
         greetingServiceURI = greetingBaseURI + "api/greeting";
         cacheServiceURI = greetingBaseURI + "api/cached";
-        waitForApp(greetingBaseURI + "health");
 
         clearCache();
     }
@@ -78,16 +77,29 @@ public class OpenShiftIT {
         assertThat(messageFromSecondInvocation).isNotEqualToIgnoringCase(messageFromFirstInvocation);
     }
 
-    private void waitForApp(String uri) {
-        await().pollInterval(1, TimeUnit.SECONDS).atMost(5, TimeUnit.MINUTES)
-                .until(() -> {
-                    try {
-                        final Response response = get(uri);
-                        return response.getStatusCode() == 200;
-                    } catch (final Exception e) {
-                        return false;
-                    }
-                });
+    @Test
+    public void firstRequestShouldBeSlow() {
+        final long time = measureTime(this::getMessageFromGreetingService);
+
+        assertThat(time).as("Server responded too fast").isGreaterThanOrEqualTo(2000);
+    }
+
+    @Test
+    public void secondRequestShouldBeFast() {
+        getMessageFromGreetingService();
+
+        final long time = measureTime(this::getMessageFromGreetingService);
+
+        assertThat(time).as("Server didn't respond fast enough").isLessThanOrEqualTo(1000);
+    }
+
+    @Test
+    public void shouldClearCache() {
+        getMessageFromGreetingService();
+        assertCached(true);
+
+        clearCache();
+        assertCached(false);
     }
 
     private String getMessageFromGreetingService() {
@@ -108,10 +120,23 @@ public class OpenShiftIT {
                 .statusCode(204);
     }
 
+    private void assertCached(boolean cached) {
+        when()
+                .get(cacheServiceURI)
+        .then()
+                .body("cached", is(cached));
+    }
+
     private void waitForCacheToExpire(int seconds) {
         try {
             Thread.sleep(seconds * 1000);
         } catch (InterruptedException ignored) {}
+    }
+
+    private long measureTime(Runnable action) {
+        long start = System.currentTimeMillis();
+        action.run();
+        return System.currentTimeMillis() - start;
     }
 
 }
