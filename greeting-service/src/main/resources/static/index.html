@@ -1,29 +1,13 @@
-<!--
-  ~
-  ~  Copyright 2016-2017 Red Hat, Inc, and individual contributors.
-  ~
-  ~  Licensed under the Apache License, Version 2.0 (the "License");
-  ~  you may not use this file except in compliance with the License.
-  ~  You may obtain a copy of the License at
-  ~
-  ~  http://www.apache.org/licenses/LICENSE-2.0
-  ~
-  ~  Unless required by applicable law or agreed to in writing, software
-  ~  distributed under the License is distributed on an "AS IS" BASIS,
-  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  ~  See the License for the specific language governing permissions and
-  ~  limitations under the License.
-  ~
-  -->
 <html>
 
 <head>
+
     <meta charset="utf-8">
-    <title>Caching Mission - Spring Boot</title>
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-          crossorigin="anonymous">
+    <title>Cache Mission - Spring Boot Booster</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
 </head>
 
 <body>
@@ -31,64 +15,91 @@
 <div class="container">
 
     <div>
-        <h1>Caching Mission - Spring Boot</h1>
+        <h1>Spring Boot Cache Booster</h1>
+
         <p class="lead">
-            TODO - ADD DESCRIPTION.
+            The Caching booster demonstrates how to use a cache to increase the response time of applications.
+            It contains three components: the <code>greeting</code> service, the <code>cute name</code> service, and a remote cache.
         </p>
-        <p>
-            On this page you can invoke the <code>greeting service</code>. This service uses a <code>cute name
-            service</code>. The invocations are cached.
-        </p>
-
-        <div class="row">
-
-            <div class="col-md-6">
-                <h2>Greeting service</h2>
-                <div id="cache-state"></div>
-                <button id="invoke" type="submit" class="btn btn-primary">Invoke</button>
-                <button id="clear" type="submit" class="btn btn-warning">Clear Cache</button>
-                <h3>Results:</h3>
-                <pre style="min-height:20em;"><code id="greeting-result"></code></pre>
-            </div>
-
+        <div class="lead">
+            <ul>
+                <li>The <code>greeting</code> service is an HTTP API that depends on a value from another HTTP API: <code>cute name</code> service.
+                    That value may also be available in a remote cache.</li>
+                <li>When the <code>greeting</code> service is called, it first checks if the value it needs is stored in the remote cache service.
+                    If it is, then the cached value is returned in under 1 second.</li>
+                <li>If the value is not cached, the <code>greeting</code> service calls the <code>cute name</code> service and returns the value. This will take several seconds.
+                <li>When a value is retrieved from the <code>cute name</code> service, it is also stored in the cache with a TTL of 5 seconds.
+                    After the TTL expires, the value is evicted from the cache.</li>
+            </ul>
         </div>
+        <p class="lead">
+            Use the section below to invoke the <code>greeting</code> service.
+            Each call to the <code>greeting</code> service records the time to complete the call.
+            This shows the difference between retrieving a cached value and a value directly from <code>cute name</code> service.
+        </p>
 
+        <h2>Greeting service</h2>
+        <button id="invoke" type="submit" class="btn btn-primary">Invoke the service</button>
+        <button id="clear" type="submit" class="btn btn-danger">Clear the cache</button>
+        <h3>Result:</h3>
+        <div class="row">
+            <div class="col-md-8">
+                <pre><code id="greeting-result">Invoke the service to see the result.</code></pre>
+            </div>
+            <div class="col-md-4">
+                <div id="cache-state"></div>
+            </div>
+        </div>
     </div>
+</div>
 
-    <script
-            src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script
-            src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-            crossorigin="anonymous"></script>
 
-    <script>
-        $(document).ready(function() {
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
 
-            $("#invoke").click(function(e) {
-                var start = new Date();
-                $.getJSON("/api/greeting", function(res) {
-                    var end = new Date();
-                    var jsonResultStr = JSON.stringify(res);
-                    var fullResultLine = jsonResultStr + " - duration: " + (end - start) + "ms\n";
-                    $("#greeting-result").prepend(fullResultLine);
-                });
-                e.preventDefault();
-            });
-
-            $("#clear").click(function(e) {
-                $.ajax({
-                    url: '/api/cached',
-                    type: 'DELETE',
-                    success: function(result) {
-                        // Do something with the result
-                    }
-                });
-                e.preventDefault();
-            });
-
+<script>
+    function updateCached() {
+        $.getJSON("/api/cached", function (res) {
+            var cached = res.cached;
+            if (cached) {
+                $("#cache-state").html("<h4><span class=\"label label-info\">A value is cached</span></h4>");
+            } else {
+                $("#cache-state").html("<h4><span class=\"label label-warning\">No cached value</span></h4>");
+            }
         });
-    </script>
+    }
+
+    $(document).ready(function () {
+        updateCached();
+        $("#invoke").click(function (e) {
+            var begin = new Date();
+            $("#greeting-result").text("Invoking the service...");
+            $.getJSON("/api/greeting", function (res) {
+                var end = new Date();
+                $("#greeting-result").text(JSON.stringify(res) + " - duration: " + (end - begin) + "ms");
+            });
+            e.preventDefault();
+        });
+        $("#clear").click(function (e) {
+            $("#greeting-result").text("Clearing the service...");
+            $
+                .ajax({
+                    method: "DELETE",
+                    url: "/api/cached"
+                })
+                .done(function (msg) {
+                    $("#greeting-result").text("Invoke the service to see the result.");
+                });
+
+            e.preventDefault();
+        });
+
+        setInterval(updateCached, 1000);
+    });
+</script>
+
 </body>
 
 </html>
