@@ -69,7 +69,7 @@ public class OpenShiftIT {
     public void testWaitForCacheToExpire() {
         final String messageFromFirstInvocation = getMessageFromGreetingService();
 
-        waitForCacheToExpire(11); //since we haven't changed anything, the default ttl is 10 seconds
+        waitForCacheToExpire(6); //since we haven't changed anything, the default ttl is 5 seconds
 
         final String messageFromSecondInvocation = getMessageFromGreetingService();
 
