@@ -4,6 +4,8 @@
         xmlns="urn:infinispan:config:9.1">
 
     <cache-container name="container" default-cache="default">
+        <local-cache name="default">
+        </local-cache>
     </cache-container>
 
 </infinispan>
