@@ -17,9 +17,12 @@
 package io.openshift.booster.service;
 
 import org.infinispan.commons.api.BasicCache;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Component;
+
+import java.util.concurrent.TimeUnit;
 
 import static io.openshift.booster.CacheConstants.NAME_CACHE_ID;
 
@@ -29,22 +32,30 @@ import static io.openshift.booster.CacheConstants.NAME_CACHE_ID;
 @Component
 public class NameCacheUtil {
 
-    private final Cache springCache;
+    private static final String KEY = "key";
+
+    private final int ttlSeconds;
     private final BasicCache<String, String> infispanCache;
 
-    public NameCacheUtil(CacheManager cacheManager) {
-        springCache = cacheManager.getCache(NAME_CACHE_ID);
+    public NameCacheUtil(@Value("${cache.ttl}") int ttlSeconds, CacheManager cacheManager) {
+        this.ttlSeconds = ttlSeconds;
+        final Cache springCache = cacheManager.getCache(NAME_CACHE_ID);
         infispanCache = (BasicCache<String, String>) springCache.getNativeCache();
     }
 
-    /**
-     * Clears all entries found in nameCache
-     */
     public void clear() {
-        springCache.clear();
+        infispanCache.clear();
     }
 
     public boolean isEmpty() {
         return infispanCache.isEmpty();
+    }
+
+    public String get() {
+        return infispanCache.get(KEY);
+    }
+
+    public void put(String value) {
+        infispanCache.put(KEY, value, ttlSeconds, TimeUnit.MILLISECONDS);
     }
 }

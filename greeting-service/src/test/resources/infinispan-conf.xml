@@ -5,9 +5,6 @@
 
     <cache-container name="container" default-cache="default">
         <jmx duplicate-domains="true"/>
-        <local-cache name="default">
-            <expiration lifespan="200"/>
-        </local-cache>
     </cache-container>
 
 </infinispan>

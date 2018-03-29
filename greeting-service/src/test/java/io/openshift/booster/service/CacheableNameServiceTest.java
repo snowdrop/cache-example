@@ -17,6 +17,7 @@
 package io.openshift.booster.service;
 
 import io.openshift.booster.AbstractSpringCachingTest;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -28,6 +29,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 
 public class CacheableNameServiceTest extends AbstractSpringCachingTest {
@@ -37,6 +39,11 @@ public class CacheableNameServiceTest extends AbstractSpringCachingTest {
 
     @Autowired
     private NameService nameService;
+
+    @Before
+    public void setUp() {
+        when(nameService.getName()).thenReturn("dummy");
+    }
 
     @Test
     public void verifyCachingBehavior() {

@@ -4,9 +4,6 @@
         xmlns="urn:infinispan:config:9.1">
 
     <cache-container name="container" default-cache="default">
-        <local-cache name="default">
-            <expiration lifespan="5000"/>
-        </local-cache>
     </cache-container>
 
 </infinispan>

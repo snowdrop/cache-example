@@ -17,27 +17,34 @@
 package io.openshift.booster.service;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-
-import static io.openshift.booster.CacheConstants.NAME_CACHE_ID;
 
 @Component
 public class CacheableNameService implements NameService {
 
     private final RestTemplate restTemplate;
+    private final NameCacheUtil nameCacheUtil;
     private final String nameServiceBaseURL;
 
     public CacheableNameService(RestTemplate restTemplate,
+                                NameCacheUtil nameCacheUtil,
                                 @Value("${service.name.baseURL:test}") String nameServiceBaseURL) {
         this.restTemplate = restTemplate;
+        this.nameCacheUtil = nameCacheUtil;
         this.nameServiceBaseURL = nameServiceBaseURL;
     }
 
-    @Cacheable(NAME_CACHE_ID)
     @Override
     public String getName() {
-        return restTemplate.getForObject(nameServiceBaseURL + "/api/name", String.class);
+        if (nameCacheUtil.get() != null) {
+            return nameCacheUtil.get();
+        }
+
+        final String value = restTemplate.getForObject(nameServiceBaseURL + "/api/name", String.class);
+        if (value != null) {
+            nameCacheUtil.put(value);
+        }
+        return value;
     }
 }
