@@ -34,11 +34,11 @@ public class NameCacheUtil {
 
     private static final String KEY = "key";
 
-    private final int ttlSeconds;
+    private final int ttlMillis;
     private final BasicCache<String, String> infispanCache;
 
-    public NameCacheUtil(@Value("${cache.ttl}") int ttlSeconds, CacheManager cacheManager) {
-        this.ttlSeconds = ttlSeconds;
+    public NameCacheUtil(@Value("${cache.ttl}") int ttlMillis, CacheManager cacheManager) {
+        this.ttlMillis = ttlMillis;
         final Cache springCache = cacheManager.getCache(NAME_CACHE_ID);
         infispanCache = (BasicCache<String, String>) springCache.getNativeCache();
     }
@@ -56,6 +56,6 @@ public class NameCacheUtil {
     }
 
     public void put(String value) {
-        infispanCache.put(KEY, value, ttlSeconds, TimeUnit.MILLISECONDS);
+        infispanCache.put(KEY, value, ttlMillis, TimeUnit.MILLISECONDS);
     }
 }
