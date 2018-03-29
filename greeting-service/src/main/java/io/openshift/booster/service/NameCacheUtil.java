@@ -35,27 +35,27 @@ public class NameCacheUtil {
     private static final String KEY = "key";
 
     private final int ttlMillis;
-    private final BasicCache<String, String> infispanCache;
+    private final BasicCache<String, String> infinispanCache;
 
     public NameCacheUtil(@Value("${cache.ttl}") int ttlMillis, CacheManager cacheManager) {
         this.ttlMillis = ttlMillis;
         final Cache springCache = cacheManager.getCache(NAME_CACHE_ID);
-        infispanCache = (BasicCache<String, String>) springCache.getNativeCache();
+        infinispanCache = (BasicCache<String, String>) springCache.getNativeCache();
     }
 
     public void clear() {
-        infispanCache.clear();
+        infinispanCache.clear();
     }
 
     public boolean isEmpty() {
-        return infispanCache.isEmpty();
+        return infinispanCache.isEmpty();
     }
 
     public String get() {
-        return infispanCache.get(KEY);
+        return infinispanCache.get(KEY);
     }
 
     public void put(String value) {
-        infispanCache.put(KEY, value, ttlMillis, TimeUnit.MILLISECONDS);
+        infinispanCache.put(KEY, value, ttlMillis, TimeUnit.MILLISECONDS);
     }
 }
