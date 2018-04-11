@@ -22,17 +22,10 @@ What that means practically, is that the business code simply uses Spring's `@Ca
 $ oc new-project cache-booster
 ----
 
-- Ensure that JBoss Datagrid has the appropriate permissions on Openshift
-[source,bash,options="nowrap",subs="attributes+"]
-----
-$ oc policy add-role-to-user view system:serviceaccount:$(oc project -q):default -n $(oc project -q)
-$ oc policy add-role-to-user view system:serviceaccount:$(oc project -q):eap-service-account -n $(oc project -q)
-----
-
 - Deploy JBoss Datagrid to Openshift
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-$ oc apply -f greeting-service/.openshiftio/service.cache.yml
+$ oc apply -f service.cache.yml
 ----
 
 
