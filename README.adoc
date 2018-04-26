@@ -48,5 +48,7 @@ depending on the state of the cache
 - Execute the integration test to verify the behavior of the system
 [source,bash,options="nowrap",subs="attributes+"]
 ----
+$ oc delete project cache-booster --ignore-not-found=true
+$ oc new-project cache-booster
 $ mvn clean verify -Popenshift,openshift-it
 ----
