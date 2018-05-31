@@ -11,7 +11,7 @@
     </parent>
 
     <artifactId>spring-boot-cache-parent</artifactId>
-    <version>1.5.13-1-redhat</version>
+    <version>1.5.13-2-redhat-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Spring Boot - Cache Booster</name>
