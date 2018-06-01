@@ -17,6 +17,13 @@
     <name>Spring Boot - Cache Booster</name>
     <description>Spring Boot - Cache Booster</description>
 
+  <properties>
+    <arquillian.version>1.4.0.Final</arquillian.version>
+    <junit.version>4.12</junit.version>
+    <spring-boot-bom.version>1.5.13.Final</spring-boot-bom.version>
+    <spring-boot.version>1.5.13.RELEASE</spring-boot.version>
+  </properties>
+
     <modules>
         <module>cute-name-service</module>
         <module>greeting-service</module>
