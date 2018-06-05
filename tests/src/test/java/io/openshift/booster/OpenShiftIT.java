@@ -34,7 +34,7 @@ import static org.hamcrest.core.Is.is;
 @RunWith(Arquillian.class)
 public class OpenShiftIT {
 
-    @RouteURL("spring-boot-cache-greeting")
+    @RouteURL("${app.name}")
     @AwaitRoute(path = "/health")
     private URL greetingBaseURI;
 
