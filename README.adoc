@@ -1,3 +1,5 @@
+image:https://circleci.com/gh/snowdrop/spring-boot-cache-booster.svg?style=svg["CircleCI", link="https://circleci.com/gh/snowdrop/spring-boot-cache-booster"]
+
 == Purpose
 
 The​ ​ purpose​ ​ of​ ​ this​ ​ use​ ​ case​ ​ is​ ​ to​ ​ demonstrate​ ​ how​ ​ to​ ​ use​ ​ Red​ ​ Hat​ ​ JBoss​ ​ Data​ ​ Grid​ ​ for
