@@ -1,4 +1,4 @@
-image:https://circleci.com/gh/snowdrop/spring-boot-cache-booster.svg?style=svg["CircleCI", link="https://circleci.com/gh/snowdrop/spring-boot-cache-booster"]
+image:https://circleci.com/gh/snowdrop/spring-boot-cache-booster.svg?style=shield["CircleCI", link="https://circleci.com/gh/snowdrop/spring-boot-cache-booster"]
 
 == Purpose
 
