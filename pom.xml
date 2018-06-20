@@ -21,7 +21,7 @@
   <properties>
     <arquillian.version>1.4.0.Final</arquillian.version>
     <junit.version>4.12</junit.version>
-    <spring-boot-bom.version>1.5.14.Beta2</spring-boot-bom.version>
+    <spring-boot-bom.version>1.5.14.Beta3</spring-boot-bom.version>
     <spring-boot.version>1.5.14.RELEASE</spring-boot.version>
     <awaitility.version>1.7.0</awaitility.version>
     <rest-assured.version>2.9.0</rest-assured.version>
