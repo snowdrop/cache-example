@@ -43,7 +43,7 @@ jobs:
           name: Install Maven dependencies locally
           command: |
             # Need to exclude tests since Maven will fail. See https://stackoverflow.com/q/14694139/2504224
-            if ! ./mvnw -s .circleci/settings.xml dependency:go-offline --projects '!tests'; then
+            if ! ./mvnw -q -s .circleci/settings.xml dependency:go-offline --projects '!tests'; then
                 bom_version=$(grep -oPm1 "(?<=<spring-boot.bom.version>)[^<]+" pom.xml)
                 echo "Need to checkout the Spring Boot BOM by checking it out from Github using version: ${bom_version}"
 
