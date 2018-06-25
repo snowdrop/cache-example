@@ -59,7 +59,7 @@ jobs:
 
                 popd > /dev/null
                 #Re-execute command since the BOM has now been installed to the local .m2 directory
-                ./mvnw -q -s .circleci/settings.xml dependency:go-offline --projects '!tests';
+                ./mvnw -q -s .circleci/settings.xml dependency:go-offline --projects '!tests'
             fi
 
 
