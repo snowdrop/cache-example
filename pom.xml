@@ -109,7 +109,7 @@
           <artifactId>spring-boot-maven-plugin</artifactId>
           <version>${spring-boot.version}</version>
           <configuration>
-            <classifier>exec</classifier>
+            <!--<classifier>exec</classifier>-->
           </configuration>
           <executions>
             <execution>
