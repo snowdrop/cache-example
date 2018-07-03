@@ -16,8 +16,8 @@
 
 package io.openshift.booster;
 
-import com.jayway.restassured.response.ExtractableResponse;
-import com.jayway.restassured.response.Response;
+import io.restassured.response.ExtractableResponse;
+import io.restassured.response.Response;
 import org.arquillian.cube.openshift.impl.enricher.AwaitRoute;
 import org.arquillian.cube.openshift.impl.enricher.RouteURL;
 import org.jboss.arquillian.junit.Arquillian;
@@ -27,7 +27,7 @@ import org.junit.runner.RunWith;
 
 import java.net.URL;
 
-import static com.jayway.restassured.RestAssured.when;
+import static io.restassured.RestAssured.when;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.core.Is.is;
 
