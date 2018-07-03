@@ -66,6 +66,7 @@
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

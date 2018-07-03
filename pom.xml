@@ -53,19 +53,16 @@
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
         <version>${junit.version}</version>
-        <scope>test</scope>
       </dependency>
       <dependency>
           <groupId>io.rest-assured</groupId>
           <artifactId>rest-assured</artifactId>
           <version>${rest-assured.version}</version>
-          <scope>test</scope>
       </dependency>
       <dependency>
           <groupId>org.awaitility</groupId>
           <artifactId>awaitility</artifactId>
           <version>${awaitility.version}</version>
-          <scope>test</scope>
       </dependency>
       <dependency>
           <groupId>commons-logging</groupId>
