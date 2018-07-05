@@ -107,7 +107,6 @@
                             </execution>
                         </executions>
                         <configuration>
-                            <skip>false</skip>
                             <profile>aggregate</profile>
                         </configuration>
                         <dependencies>
