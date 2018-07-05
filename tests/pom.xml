@@ -80,13 +80,6 @@
                     <skip>true</skip>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>io.fabric8</groupId>
-                <artifactId>fabric8-maven-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 
@@ -107,7 +100,6 @@
                             </execution>
                         </executions>
                         <configuration>
-                            <skip>false</skip>
                             <profile>aggregate</profile>
                         </configuration>
                         <dependencies>
