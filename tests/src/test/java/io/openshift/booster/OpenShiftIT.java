@@ -27,25 +27,22 @@ import org.junit.runner.RunWith;
 
 import java.net.URL;
 
-import static io.restassured.RestAssured.when;
+import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.core.Is.is;
 
 @RunWith(Arquillian.class)
 public class OpenShiftIT {
 
+    private static final String GREETING_PATH = "api/greeting";
+    protected static final String CACHED_PATH = "api/cached";
+
     @RouteURL("${app.name}")
     @AwaitRoute(path = "/health")
     private URL greetingBaseURI;
 
-    private String greetingServiceURI;
-    private String cacheServiceURI;
-
     @Before
     public void setup() {
-        greetingServiceURI = greetingBaseURI + "api/greeting";
-        cacheServiceURI = greetingBaseURI + "api/cached";
-
         clearCache();
     }
 
@@ -103,7 +100,10 @@ public class OpenShiftIT {
     }
 
     private String getMessageFromGreetingService() {
-        final ExtractableResponse<Response> response = when().get(greetingServiceURI)
+        final ExtractableResponse<Response> response =
+                given()
+                  .baseUri(greetingBaseURI.toString())
+                .get(GREETING_PATH)
                 .then()
                 .statusCode(200)
                 .extract();
@@ -115,16 +115,19 @@ public class OpenShiftIT {
     }
 
     private void clearCache() {
-        when().delete(cacheServiceURI)
-                .then()
-                .statusCode(204);
+        given()
+            .baseUri(greetingBaseURI.toString())
+            .delete(CACHED_PATH)
+            .then()
+            .statusCode(204);
     }
 
     private void assertCached(boolean cached) {
-        when()
-                .get(cacheServiceURI)
-        .then()
-                .body("cached", is(cached));
+        given()
+           .baseUri(greetingBaseURI.toString())
+           .get(CACHED_PATH)
+           .then()
+           .body("cached", is(cached));
     }
 
     private void waitForCacheToExpire(int seconds) {
