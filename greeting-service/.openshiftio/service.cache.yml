@@ -18,8 +18,6 @@ items:
         spec:
           containers:
             - env:
-              - name: DEFAULT_CACHE_EVICTION_MAX_ENTRIES
-                value: "10"
               - name: DEFAULT_CACHE_EXPIRATION_LIFESPAN
                 value: "10000"
               - name: INFINISPAN_CONNECTORS
