@@ -54,3 +54,5 @@ $ oc delete project cache-booster --ignore-not-found=true
 $ oc new-project cache-booster
 $ mvn clean verify -Popenshift,openshift-it
 ----
+
+
