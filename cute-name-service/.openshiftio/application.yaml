@@ -69,7 +69,7 @@ objects:
     output:
       to:
         kind: ImageStreamTag
-        name: spring-boot-cache-cutename:BOOSTER_VERSION
+        name: spring-boot-cache-cutename:1.5.15-3
     postCommit: {}
     resources: {}
     source:
