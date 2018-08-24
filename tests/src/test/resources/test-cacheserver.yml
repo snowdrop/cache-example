@@ -22,7 +22,7 @@ items:
                 value: "10000"
               - name: INFINISPAN_CONNECTORS
                 value: hotrod
-              image: registry.access.redhat.com/jboss-datagrid-7/datagrid71-openshift:1.1
+              image: registry.access.redhat.com/jboss-datagrid-7/datagrid72-openshift:1.0
               name: cache-server
               ports:
               - containerPort: 8778
