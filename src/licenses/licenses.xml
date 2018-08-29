@@ -296,17 +296,6 @@
             </licenses>
         </dependency>
         <dependency>
-            <groupId>commons-pool</groupId>
-            <artifactId>commons-pool</artifactId>
-            <version>1.6</version>
-            <licenses>
-                <license>
-                    <name>Apache License 2.0</name>
-                    <url>http://www.apache.org/licenses/LICENSE-2.0</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
             <groupId>dk.brics.automaton</groupId>
             <artifactId>automaton</artifactId>
             <version>1.11-8</version>
@@ -1160,7 +1149,7 @@
         <dependency>
             <groupId>org.infinispan</groupId>
             <artifactId>infinispan-spring4-common</artifactId>
-            <version>8.2.6.Final</version>
+            <version>9.1.0.Final</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -1171,7 +1160,7 @@
         <dependency>
             <groupId>org.infinispan</groupId>
             <artifactId>infinispan-spring4-embedded</artifactId>
-            <version>8.2.6.Final</version>
+            <version>9.1.0.Final</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -1378,6 +1367,17 @@
             <groupId>org.jboss.arquillian.test</groupId>
             <artifactId>arquillian-test-spi</artifactId>
             <version>1.4.0.Final</version>
+            <licenses>
+                <license>
+                    <name>Apache License 2.0</name>
+                    <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+                </license>
+            </licenses>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.logging</groupId>
+            <artifactId>jboss-logging</artifactId>
+            <version>3.3.0.Final</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
