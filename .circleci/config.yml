@@ -124,10 +124,9 @@ workflows:
             branches:
               ignore:
               - /.*redhat.*/
+              - /.*rh.*/
               - /temp-community/
               - /temp-prod/
-              - /.*rh.*/
-
 notify:
   webhooks:
   - url: https://webhook.atomist.com/atomist/circle/teams/A7BRBZRRH
