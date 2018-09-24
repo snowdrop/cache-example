@@ -124,6 +124,8 @@ workflows:
             branches:
               ignore:
               - /.*redhat.*/
+              - /temp-community/
+              - /temp-prod/
               - /.*rh.*/
 
 notify:
