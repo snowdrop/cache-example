@@ -7,7 +7,7 @@
     <version>23</version>
   </parent>
   <artifactId>spring-boot-cache-parent</artifactId>
-  <version>1.5.17-4-SNAPSHOT</version>
+  <version>1.5.17-5-SNAPSHOT</version>
   <packaging>pom</packaging>
   <groupId>io.openshift.booster</groupId>
   <name>Spring Boot - Cache Booster</name>
