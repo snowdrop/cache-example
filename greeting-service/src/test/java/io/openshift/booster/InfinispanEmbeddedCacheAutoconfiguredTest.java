@@ -16,7 +16,7 @@
 
 package io.openshift.booster;
 
-import org.infinispan.spring.provider.SpringEmbeddedCacheManager;
+import org.infinispan.spring.embedded.provider.SpringEmbeddedCacheManager;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
