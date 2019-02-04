@@ -23,8 +23,8 @@
             By including the BOM manually and keeping these two properties in sync,
             we can be sure that correct Infinispan dependencies are always used
         -->
-        <version.infinispan.starter>2.1.2.Final</version.infinispan.starter>
-        <version.infinispan>9.4.5.Final</version.infinispan>
+        <version.infinispan.starter>2.1.3.Final</version.infinispan.starter>
+        <version.infinispan>9.4.6.Final</version.infinispan>
     </properties>
 
     <dependencyManagement>
