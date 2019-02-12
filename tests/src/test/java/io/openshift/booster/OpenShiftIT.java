@@ -38,7 +38,7 @@ public class OpenShiftIT {
     protected static final String CACHED_PATH = "api/cached";
 
     @RouteURL("${app.name}")
-    @AwaitRoute(path = "/health")
+    @AwaitRoute(path = "/actuator/health")
     private URL greetingBaseURI;
 
     @Before
