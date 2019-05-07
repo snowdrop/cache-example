@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package io.openshift.booster.service;
+package dev.snowdrop.example.service;
 
-import io.openshift.booster.AbstractSpringCachingTest;
+import dev.snowdrop.example.AbstractSpringCachingTest;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

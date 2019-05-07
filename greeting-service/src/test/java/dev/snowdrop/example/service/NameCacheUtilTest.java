@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package io.openshift.booster.service;
+package dev.snowdrop.example.service;
 
-import io.openshift.booster.AbstractSpringCachingTest;
+import dev.snowdrop.example.AbstractSpringCachingTest;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 
-import static io.openshift.booster.CacheConstants.NAME_CACHE_ID;
+import static dev.snowdrop.example.CacheConstants.NAME_CACHE_ID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class NameCacheUtilTest extends AbstractSpringCachingTest {

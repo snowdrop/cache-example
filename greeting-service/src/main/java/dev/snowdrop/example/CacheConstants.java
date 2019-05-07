@@ -14,20 +14,12 @@
  * limitations under the License.
  */
 
-package io.openshift.booster;
+package dev.snowdrop.example;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+public final class CacheConstants {
 
-/**
- * Entry point to the application.
- */
-@SpringBootApplication
-public class BoosterApplication {
+    public static final String NAME_CACHE_ID = "default";
 
-    public static void main(String[] args) {
-        SpringApplication.run(BoosterApplication.class, args);
-    }
 
+    private CacheConstants() {}
 }
-

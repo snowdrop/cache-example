@@ -14,12 +14,22 @@
  * limitations under the License.
  */
 
-package io.openshift.booster;
+package dev.snowdrop.example;
 
-public final class CacheConstants {
+import org.infinispan.spring.embedded.provider.SpringEmbeddedCacheManager;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 
-    public static final String NAME_CACHE_ID = "default";
+import static org.assertj.core.api.Assertions.assertThat;
 
+public class InfinispanEmbeddedCacheAutoconfiguredTest extends AbstractSpringCachingTest{
 
-    private CacheConstants() {}
+    @Autowired
+    private CacheManager cacheManager;
+
+    @Test
+    public void configuredCacheManagerIsInfinispanEmbeddedCacheManager() {
+        assertThat(cacheManager).isNotNull().isInstanceOf(SpringEmbeddedCacheManager.class);
+    }
 }
