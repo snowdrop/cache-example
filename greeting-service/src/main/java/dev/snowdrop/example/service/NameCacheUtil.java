@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.openshift.booster.service;
+package dev.snowdrop.example.service;
 
 import org.infinispan.commons.api.BasicCache;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,7 +24,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
 
-import static io.openshift.booster.CacheConstants.NAME_CACHE_ID;
+import static dev.snowdrop.example.CacheConstants.NAME_CACHE_ID;
 
 /**
  * Provides utility methods relating to the name cache

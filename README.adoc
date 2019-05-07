@@ -1,4 +1,4 @@
-image:https://circleci.com/gh/snowdrop/spring-boot-cache-booster.svg?style=shield["CircleCI", link="https://circleci.com/gh/snowdrop/spring-boot-cache-booster"]
+image:https://circleci.com/gh/snowdrop/cache-example.svg?style=shield["CircleCI", link="https://circleci.com/gh/snowdrop/cache-example"]
 
 == Purpose
 
@@ -14,14 +14,14 @@ This​ ​ mission​ ​ covers:
 The boosters demonstrates how Spring's Caching support can interact with the JBoss Datagrid caching server.
 What that means practically, is that the business code simply uses Spring's `@Cacheable` to cache return values
 
-== Deploying and interacting with the booster
+== Deploying and interacting with the example
 
 
-- Create a new OpenShift project `cache-booster` (or whatever you want to call it):
+- Create a new OpenShift project `cache-example` (or whatever you want to call it):
 
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-$ oc new-project cache-booster
+$ oc new-project cache-example
 ----
 
 - Deploy JBoss Datagrid to Openshift
@@ -50,7 +50,7 @@ depending on the state of the cache
 - Execute the integration test to verify the behavior of the system
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-$ oc delete project cache-booster --ignore-not-found=true
-$ oc new-project cache-booster
+$ oc delete project cache-example --ignore-not-found=true
+$ oc new-project cache-example
 $ mvn clean verify -Popenshift,openshift-it
 ----

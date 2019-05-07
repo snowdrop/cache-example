@@ -4,15 +4,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>io.openshift.booster</groupId>
-        <artifactId>spring-boot-cache-parent</artifactId>
+        <groupId>dev.snowdrop.example</groupId>
+        <artifactId>cache</artifactId>
         <version>1.5.19-3-SNAPSHOT</version>
     </parent>
 
     <artifactId>spring-boot-cache-greeting</artifactId>
 
-    <name>Spring Boot - Cache Booster - Greeting Service</name>
-    <description>Spring Boot - Cache Booster - Greeting Service</description>
+    <name>Spring Boot - Cache Example - Greeting Service</name>
+    <description>Spring Boot - Cache Example - Greeting Service</description>
 
     <properties>
         <!--
