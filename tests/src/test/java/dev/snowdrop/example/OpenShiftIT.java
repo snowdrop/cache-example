@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.openshift.booster;
+package dev.snowdrop.example;
 
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;

@@ -14,22 +14,34 @@
  * limitations under the License.
  */
 
-package io.openshift.booster;
+package dev.snowdrop.example.service;
 
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = BoosterApplication.class, webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public abstract class AbstractSpringCachingTest {
+@RestController
+public class NameController {
 
-    //needs to be larger than the value specified in infinispan-conf.xml
-    protected static final int MILLIS_LARGER_THAN_CACHE_EXPIRATION = 250;
+    private final Integer sleepMillis;
 
-    protected void sleepLongEnoughForCacheToExpire()  {
+    public NameController(@Value("${sleep.millis:1000}") Integer sleepMillis) {
+        this.sleepMillis = sleepMillis;
+    }
+
+    @GetMapping("/api/name")
+    public String getName() {
+        sleep();
+        return UserNameGenerator.generate();
+    }
+
+    private void sleep() {
+        if (sleepMillis <= 0) {
+            return;
+        }
+
         try {
-            Thread.sleep(MILLIS_LARGER_THAN_CACHE_EXPIRATION);
+            Thread.sleep(sleepMillis);
         } catch (InterruptedException ignored) {}
     }
 }

@@ -14,22 +14,20 @@
  * limitations under the License.
  */
 
-package io.openshift.booster;
+package dev.snowdrop.example;
 
-import org.infinispan.spring.provider.SpringEmbeddedCacheManager;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.CacheManager;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import static org.assertj.core.api.Assertions.assertThat;
+/**
+ * Entry point to the application.
+ */
+@SpringBootApplication
+public class ExampleApplication {
 
-public class InfinispanEmbeddedCacheAutoconfiguredTest extends AbstractSpringCachingTest{
-
-    @Autowired
-    private CacheManager cacheManager;
-
-    @Test
-    public void configuredCacheManagerIsInfinispanEmbeddedCacheManager() {
-        assertThat(cacheManager).isNotNull().isInstanceOf(SpringEmbeddedCacheManager.class);
+    public static void main(String[] args) {
+        SpringApplication.run(ExampleApplication.class, args);
     }
+
 }
+

@@ -14,9 +14,12 @@
  * limitations under the License.
  */
 
-package io.openshift.booster.service;
+package dev.snowdrop.example;
 
-public interface NameService {
+public final class CacheConstants {
 
-    String getName();
+    public static final String NAME_CACHE_ID = "default";
+
+
+    private CacheConstants() {}
 }

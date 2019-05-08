@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package io.openshift.booster;
+package dev.snowdrop.example;
 
-import io.openshift.booster.service.GreetingController;
-import io.openshift.booster.service.NameCacheUtil;
-import io.openshift.booster.service.NameService;
+import dev.snowdrop.example.service.GreetingController;
+import dev.snowdrop.example.service.NameCacheUtil;
+import dev.snowdrop.example.service.NameService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(GreetingController.class)
-public class BoosterApplicationTest {
+public class ExampleApplicationTest {
 
     @Autowired
     private MockMvc mvc;

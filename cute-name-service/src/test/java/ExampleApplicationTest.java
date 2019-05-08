@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import io.openshift.booster.BoosterApplication;
+import dev.snowdrop.example.ExampleApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +30,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(
-        classes = BoosterApplication.class,
+        classes = ExampleApplication.class,
         webEnvironment = SpringBootTest.WebEnvironment.MOCK,
         properties = {"sleep.millis=0"} //we don't want the test to be slow because of sleeping
 )
 @AutoConfigureMockMvc
-public class BoosterApplicationTest {
+public class ExampleApplicationTest {
 
     @Autowired
     private MockMvc mvc;
