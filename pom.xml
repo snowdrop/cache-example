@@ -7,7 +7,7 @@
     <version>23</version>
   </parent>
   <artifactId>cache</artifactId>
-  <version>1.5.19-4-SNAPSHOT</version>
+  <version>1.5.19-4</version>
   <packaging>pom</packaging>
   <groupId>dev.snowdrop.example</groupId>
   <name>Spring Boot - Cache Example</name>
