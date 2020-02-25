@@ -95,6 +95,54 @@
                     <version>${version.infinispan.starter}</version>
                 </dependency>
             </dependencies>
+          <build>
+            <plugins>
+              <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>fabric8-maven-plugin</artifactId>
+                <configuration>
+                  <resources>
+                    <labels>
+                      <all>
+                        <property>
+                          <name>app.kubernetes.io/part-of</name>
+                          <value>cache-example</value>
+                        </property>
+                        <property>
+                          <name>app.kubernetes.io/name</name>
+                          <value>greeting-service</value>
+                        </property>
+                        <property>
+                          <name>app.kubernetes.io/component</name>
+                          <value>frontend</value>
+                        </property>
+                        <property>
+                          <name>app.kubernetes.io/runtime</name>
+                          <value>spring-boot</value>
+                        </property>
+                        <property>
+                          <name>app.kubernetes.io/runtime-version</name>
+                          <value>${spring-boot.version}</value>
+                        </property>
+                      </all>
+                    </labels>
+                    <annotations>
+                      <all>
+                        <property>
+                          <name>app.kubernetes.io/vcs-uri</name>
+                          <value>git@github.com:snowdrop/cache-example.git</value>
+                        </property>
+                        <property>
+                          <name>app.kubernetes.io/connects-to</name>
+                          <value>cute-name-service</value>
+                        </property>
+                      </all>
+                    </annotations>
+                  </resources>
+                </configuration>
+              </plugin>
+            </plugins>
+          </build>
         </profile>
     </profiles>
 </project>

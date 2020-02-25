@@ -2,12 +2,20 @@ apiVersion: v1
 kind: Template
 metadata:
   name: spring-boot-cache-cutename
+  labels:
+    app.kubernetes.io/part-of: cache-example
+    app.kubernetes.io/name: cute-name-service
+    app.kubernetes.io/component: backend
+    app.kubernetes.io/runtime: spring-boot
+    app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
   annotations:
     iconClass: icon-spring
     tags: spring-boot, circuit breaker, java, microservice
     openshift.io/display-name: Spring Boot - Name Service managed by the Circuit Breaker
     openshift.io/provider-display-name: "Red Hat, Inc."
     openshift.io/documentation-url: "https://appdev.prod-preview.openshift.io/docs/spring-boot-runtime.html#mission-cache-spring-boot"
+    app.kubernetes.io/vcs-uri: git@github.com:snowdrop/cache-example.git
+    app.kubernetes.io/connects-to: greeting-cache
     description: >-
       The Cache Service Mission demonstrates caching with Infinispan.
 parameters:
@@ -50,6 +58,15 @@ objects:
   kind: ImageStream
   metadata:
     name: spring-boot-cache-cutename
+    labels:
+      app.kubernetes.io/part-of: cache-example
+      app.kubernetes.io/name: cute-name-service
+      app.kubernetes.io/component: backend
+      app.kubernetes.io/runtime: spring-boot
+      app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
+    annotations:
+      app.kubernetes.io/vcs-uri: git@github.com:snowdrop/cache-example.git
+      app.kubernetes.io/connects-to: greeting-cache
   spec: {}
 - apiVersion: v1
   kind: ImageStream
@@ -65,6 +82,15 @@ objects:
   kind: BuildConfig
   metadata:
     name: spring-boot-cache-cutename
+    labels:
+      app.kubernetes.io/part-of: cache-example
+      app.kubernetes.io/name: cute-name-service
+      app.kubernetes.io/component: backend
+      app.kubernetes.io/runtime: spring-boot
+      app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
+    annotations:
+      app.kubernetes.io/vcs-uri: git@github.com:snowdrop/cache-example.git
+      app.kubernetes.io/connects-to: greeting-cache
   spec:
     output:
       to:
@@ -110,6 +136,14 @@ objects:
       provider: snowdrop
       version: "BOOSTER_VERSION"
       group: dev.snowdrop.example
+      app.kubernetes.io/part-of: cache-example
+      app.kubernetes.io/name: cute-name-service
+      app.kubernetes.io/component: backend
+      app.kubernetes.io/runtime: spring-boot
+      app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
+    annotations:
+      app.kubernetes.io/vcs-uri: git@github.com:snowdrop/cache-example.git
+      app.kubernetes.io/connects-to: greeting-cache
     name: spring-boot-cache-cutename
   spec:
     ports:
@@ -129,6 +163,14 @@ objects:
       provider: snowdrop
       version: "BOOSTER_VERSION"
       group: dev.snowdrop.example
+      app.kubernetes.io/part-of: cache-example
+      app.kubernetes.io/name: cute-name-service
+      app.kubernetes.io/component: backend
+      app.kubernetes.io/runtime: spring-boot
+      app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
+    annotations:
+      app.kubernetes.io/vcs-uri: git@github.com:snowdrop/cache-example.git
+      app.kubernetes.io/connects-to: greeting-cache
     name: spring-boot-cache-cutename
   spec:
     replicas: 1
@@ -148,6 +190,14 @@ objects:
           provider: snowdrop
           version: "BOOSTER_VERSION"
           group: dev.snowdrop.example
+          app.kubernetes.io/part-of: cache-example
+          app.kubernetes.io/name: cute-name-service
+          app.kubernetes.io/component: backend
+          app.kubernetes.io/runtime: spring-boot
+          app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
+        annotations:
+          app.kubernetes.io/vcs-uri: git@github.com:snowdrop/cache-example.git
+          app.kubernetes.io/connects-to: greeting-cache
       spec:
         containers:
         - env:
@@ -200,6 +250,14 @@ objects:
       provider: snowdrop
       version: "BOOSTER_VERSION"
       group: dev.snowdrop.example
+      app.kubernetes.io/part-of: cache-example
+      app.kubernetes.io/name: cute-name-service
+      app.kubernetes.io/component: backend
+      app.kubernetes.io/runtime: spring-boot
+      app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
+    annotations:
+      app.kubernetes.io/vcs-uri: git@github.com:snowdrop/cache-example.git
+      app.kubernetes.io/connects-to: greeting-cache
     name: spring-boot-cache-cutename
   spec:
     port:
