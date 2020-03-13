@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <artifactId>cache</artifactId>
-  <version>2.1.13-2-SNAPSHOT</version>
+  <version>2.1.13-2-redhat</version>
   <packaging>pom</packaging>
   <groupId>dev.snowdrop.example</groupId>
   <name>Spring Boot - Cache Example</name>
@@ -18,7 +18,7 @@
     <junit.version>4.12</junit.version>
     <openjdk18-openshift.version>latest</openjdk18-openshift.version>
     <rest-assured.version>3.1.0</rest-assured.version>
-    <spring-boot-bom.version>2.1.13.Beta1</spring-boot-bom.version>
+    <spring-boot-bom.version>2.1.13.Final-redhat-00001</spring-boot-bom.version>
     <spring-boot.version>2.1.13.RELEASE</spring-boot.version>
     <fabric8.generator.from>
         registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift:${openjdk18-openshift.version}
