@@ -1,3 +1,5 @@
+apiVersion: route.openshift.io/v1
+kind: Route
 metadata:
   labels:
     app.kubernetes.io/part-of: cache-example
