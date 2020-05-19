@@ -10,8 +10,8 @@ items:
         app.kubernetes.io/part-of: cache-example
         app.kubernetes.io/name: greeting-cache
         app.kubernetes.io/component: cache
-        app.kubernetes.io/runtime: datagrid
-        app.kubernetes.io/runtime-version: "7.2"
+        app.openshift.io/runtime: datagrid
+        app.openshift.io/runtime-version: "7.2"
       annotations:
         app.kubernetes.io/vcs-uri: git@github.com:snowdrop/cache-example.git
     spec:
@@ -25,8 +25,8 @@ items:
             app.kubernetes.io/part-of: cache-example
             app.kubernetes.io/name: greeting-cache
             app.kubernetes.io/component: cache
-            app.kubernetes.io/runtime: datagrid
-            app.kubernetes.io/runtime-version: "7.2"
+            app.openshift.io/runtime: datagrid
+            app.openshift.io/runtime-version: "7.2"
           annotations:
             app.kubernetes.io/vcs-uri: git@github.com:snowdrop/cache-example.git
         spec:
@@ -59,8 +59,8 @@ items:
         app.kubernetes.io/part-of: cache-example
         app.kubernetes.io/name: greeting-cache
         app.kubernetes.io/component: cache
-        app.kubernetes.io/runtime: datagrid
-        app.kubernetes.io/runtime-version: "7.2"
+        app.openshift.io/runtime: datagrid
+        app.openshift.io/runtime-version: "7.2"
       annotations:
         app.kubernetes.io/vcs-uri: git@github.com:snowdrop/cache-example.git
       name: cache-server
