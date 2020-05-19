@@ -6,8 +6,8 @@ metadata:
     app.kubernetes.io/part-of: cache-example
     app.kubernetes.io/name: greeting-service
     app.kubernetes.io/component: frontend
-    app.kubernetes.io/runtime: spring-boot
-    app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
+    app.openshift.io/runtime: rh-spring-boot
+    app.openshift.io/runtime-version: "SPRING_BOOT_VERSION"
   annotations:
     iconClass: icon-spring
     tags: spring-boot, cache, java, microservice
@@ -62,8 +62,8 @@ objects:
       app.kubernetes.io/part-of: cache-example
       app.kubernetes.io/name: greeting-service
       app.kubernetes.io/component: frontend
-      app.kubernetes.io/runtime: spring-boot
-      app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
+      app.openshift.io/runtime: rh-spring-boot
+      app.openshift.io/runtime-version: "SPRING_BOOT_VERSION"
     annotations:
       app.kubernetes.io/vcs-uri: git@github.com:snowdrop/cache-example.git
       app.kubernetes.io/connects-to: cute-name-service
@@ -86,8 +86,8 @@ objects:
       app.kubernetes.io/part-of: cache-example
       app.kubernetes.io/name: greeting-service
       app.kubernetes.io/component: frontend
-      app.kubernetes.io/runtime: spring-boot
-      app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
+      app.openshift.io/runtime: rh-spring-boot
+      app.openshift.io/runtime-version: "SPRING_BOOT_VERSION"
     annotations:
       app.kubernetes.io/vcs-uri: git@github.com:snowdrop/cache-example.git
       app.kubernetes.io/connects-to: cute-name-service
@@ -139,8 +139,8 @@ objects:
       app.kubernetes.io/part-of: cache-example
       app.kubernetes.io/name: greeting-service
       app.kubernetes.io/component: frontend
-      app.kubernetes.io/runtime: spring-boot
-      app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
+      app.openshift.io/runtime: rh-spring-boot
+      app.openshift.io/runtime-version: "SPRING_BOOT_VERSION"
     annotations:
       app.kubernetes.io/vcs-uri: git@github.com:snowdrop/cache-example.git
       app.kubernetes.io/connects-to: cute-name-service
@@ -166,8 +166,8 @@ objects:
       app.kubernetes.io/part-of: cache-example
       app.kubernetes.io/name: greeting-service
       app.kubernetes.io/component: frontend
-      app.kubernetes.io/runtime: spring-boot
-      app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
+      app.openshift.io/runtime: rh-spring-boot
+      app.openshift.io/runtime-version: "SPRING_BOOT_VERSION"
     annotations:
       app.kubernetes.io/vcs-uri: git@github.com:snowdrop/cache-example.git
       app.kubernetes.io/connects-to: cute-name-service
@@ -193,8 +193,8 @@ objects:
           app.kubernetes.io/part-of: cache-example
           app.kubernetes.io/name: greeting-service
           app.kubernetes.io/component: frontend
-          app.kubernetes.io/runtime: spring-boot
-          app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
+          app.openshift.io/runtime: rh-spring-boot
+          app.openshift.io/runtime-version: "SPRING_BOOT_VERSION"
         annotations:
           app.kubernetes.io/vcs-uri: git@github.com:snowdrop/cache-example.git
           app.kubernetes.io/connects-to: cute-name-service
@@ -253,8 +253,8 @@ objects:
       app.kubernetes.io/part-of: cache-example
       app.kubernetes.io/name: greeting-service
       app.kubernetes.io/component: frontend
-      app.kubernetes.io/runtime: spring-boot
-      app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
+      app.openshift.io/runtime: rh-spring-boot
+      app.openshift.io/runtime-version: "SPRING_BOOT_VERSION"
     annotations:
       app.kubernetes.io/vcs-uri: git@github.com:snowdrop/cache-example.git
       app.kubernetes.io/connects-to: cute-name-service
