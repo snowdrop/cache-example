@@ -1,8 +1,8 @@
 apiVersion: v1
 kind: List
 items:
-  - apiVersion: extensions/v1beta1
-    kind: Deployment
+  - apiVersion: v1
+    kind: DeploymentConfig
     metadata:
       name: cache-server
       labels:
@@ -21,6 +21,7 @@ items:
       template:
         metadata:
           labels:
+            deploymentConfig: cache-server
             app: cache-server
             app.kubernetes.io/part-of: cache-example
             app.kubernetes.io/name: greeting-cache
@@ -51,6 +52,8 @@ items:
                 protocol: TCP
               - containerPort: 8443
                 protocol: TCP
+      triggers:
+        - type: ConfigChange
   - apiVersion: v1
     kind: Service
     metadata:
