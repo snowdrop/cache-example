@@ -20,10 +20,8 @@ import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import org.arquillian.cube.openshift.impl.enricher.AwaitRoute;
 import org.arquillian.cube.openshift.impl.enricher.RouteURL;
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.net.URL;
 
@@ -31,7 +29,6 @@ import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.core.Is.is;
 
-@RunWith(Arquillian.class)
 public class OpenShiftIT {
 
     private static final String GREETING_PATH = "api/greeting";
@@ -41,7 +38,7 @@ public class OpenShiftIT {
     @AwaitRoute(path = "/actuator/health")
     private URL greetingBaseURI;
 
-    @Before
+    @BeforeEach
     public void setup() {
         clearCache();
     }

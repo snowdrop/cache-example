@@ -17,8 +17,8 @@
 package dev.snowdrop.example.service;
 
 import dev.snowdrop.example.AbstractSpringCachingTest;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
@@ -36,7 +36,7 @@ public class NameCacheUtilTest extends AbstractSpringCachingTest {
     @Autowired
     private CacheManager cacheManager;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         //clear the cache
         final Cache namesCache = getNamesCache();

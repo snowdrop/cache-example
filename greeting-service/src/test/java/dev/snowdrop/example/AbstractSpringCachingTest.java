@@ -16,11 +16,11 @@
 
 package dev.snowdrop.example;
 
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
+import org.springframework.boot.test.context.SpringBootTest;
+
+
+
 @SpringBootTest(classes = ExampleApplication.class, webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 public abstract class AbstractSpringCachingTest {
 

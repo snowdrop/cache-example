@@ -17,8 +17,9 @@
 package dev.snowdrop.example.service;
 
 import dev.snowdrop.example.AbstractSpringCachingTest;
-import org.junit.Before;
-import org.junit.Test;
+import org.aspectj.lang.annotation.Before;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.web.client.RestTemplate;
@@ -40,7 +41,7 @@ public class CacheableNameServiceTest extends AbstractSpringCachingTest {
     @Autowired
     private NameService nameService;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         when(nameService.getName()).thenReturn("dummy");
     }
