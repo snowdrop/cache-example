@@ -64,7 +64,7 @@ jobs:
             oc new-project s2i
 
             # launch the cache service
-            oc create -f greeting-service/.openshiftio/service.cache.yml
+            oc create -f .openshiftio/cache.yml
 
             declare -Ar moduleMapping=( ["greeting-service"]="spring-boot-cache-greeting" ["cute-name-service"]="spring-boot-cache-cutename" )
             for module in "${!moduleMapping[@]}"
@@ -77,7 +77,7 @@ jobs:
             done
 
             # launch the tests without deploying the application
-            ./mvnw -s .circleci/settings.xml verify -Dfabric8.skip=true -Denv.init.enabled=false -Popenshift,openshift-it
+            ./mvnw -s .circleci/settings.xml verify -Popenshift,openshift-it
 
       - run:
           name: Cleanup s2i build
@@ -89,10 +89,14 @@ jobs:
             echo "Cleaned up s2i build"
 
       - run:
-          name: run tests against fmp build
+          name: run tests against Dekorate build
           command: |
-            oc new-project fmp
-            .circleci/run_tests_with_fmp.sh -s .circleci/settings.xml
+            oc new-project dekorate
+
+            # launch the cache service
+            oc create -f .openshiftio/cache.yml
+
+            .circleci/run_tests_with_dekorate.sh -s .circleci/settings.xml
           no_output_timeout: 3600
 
 workflows:

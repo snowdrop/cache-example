@@ -27,15 +27,15 @@ $ oc new-project cache-example
 - Deploy JBoss Datagrid to Openshift
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-$ oc apply -f service.cache.yml
+$ oc apply -f .openshiftio/cache.yml
 ----
 
 
-- Build and deploy the Spring Boot application using the Fabric8 Maven Plugin
+- Build and deploy the Spring Boot application using Dekorate
 
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-$ mvn clean fabric8:deploy -Popenshift
+$ mvn clean verify -Popenshift -Ddekorate.deploy=true
 ----
 
 - Open the UI of the `greeting-service`. The URL can be determined by executing
@@ -52,5 +52,7 @@ depending on the state of the cache
 ----
 $ oc delete project cache-example --ignore-not-found=true
 $ oc new-project cache-example
-$ mvn clean verify -Popenshift,openshift-it
+$ oc apply -f .openshiftio/cache.yml
+$ mvn clean verify -Popenshift -Ddekorate.deploy=true
+$ mvn clean verify -pl tests -Popenshift-it
 ----
