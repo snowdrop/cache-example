@@ -16,13 +16,6 @@
 
 package dev.snowdrop.example.service;
 
-import dev.snowdrop.example.AbstractSpringCachingTest;
-import org.junit.Before;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.web.client.RestTemplate;
-
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.never;
@@ -31,6 +24,13 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.web.client.RestTemplate;
+
+import dev.snowdrop.example.AbstractSpringCachingTest;
 
 public class CacheableNameServiceTest extends AbstractSpringCachingTest {
 
@@ -40,7 +40,7 @@ public class CacheableNameServiceTest extends AbstractSpringCachingTest {
     @Autowired
     private NameService nameService;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         when(nameService.getName()).thenReturn("dummy");
     }

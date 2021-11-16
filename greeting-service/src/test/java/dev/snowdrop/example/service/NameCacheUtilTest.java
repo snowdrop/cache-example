@@ -16,15 +16,16 @@
 
 package dev.snowdrop.example.service;
 
-import dev.snowdrop.example.AbstractSpringCachingTest;
-import org.junit.Before;
-import org.junit.Test;
+import static dev.snowdrop.example.CacheConstants.NAME_CACHE_ID;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 
-import static dev.snowdrop.example.CacheConstants.NAME_CACHE_ID;
-import static org.assertj.core.api.Assertions.assertThat;
+import dev.snowdrop.example.AbstractSpringCachingTest;
 
 public class NameCacheUtilTest extends AbstractSpringCachingTest {
 
@@ -36,7 +37,7 @@ public class NameCacheUtilTest extends AbstractSpringCachingTest {
     @Autowired
     private CacheManager cacheManager;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         //clear the cache
         final Cache namesCache = getNamesCache();

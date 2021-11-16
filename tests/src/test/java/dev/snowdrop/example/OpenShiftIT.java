@@ -16,33 +16,43 @@
 
 package dev.snowdrop.example;
 
-import io.restassured.response.ExtractableResponse;
-import io.restassured.response.Response;
-import org.arquillian.cube.openshift.impl.enricher.AwaitRoute;
-import org.arquillian.cube.openshift.impl.enricher.RouteURL;
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import java.net.URL;
-
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.core.Is.is;
 
-@RunWith(Arquillian.class)
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import io.dekorate.testing.annotation.Inject;
+import io.dekorate.testing.openshift.annotation.OpenshiftIntegrationTest;
+import io.fabric8.kubernetes.client.KubernetesClient;
+import io.fabric8.openshift.api.model.Route;
+import io.fabric8.openshift.client.OpenShiftClient;
+import io.restassured.response.ExtractableResponse;
+import io.restassured.response.Response;
+
+@OpenshiftIntegrationTest(deployEnabled = false, buildEnabled = false)
 public class OpenShiftIT {
 
     private static final String GREETING_PATH = "api/greeting";
-    protected static final String CACHED_PATH = "api/cached";
+    private static final String CACHED_PATH = "api/cached";
 
-    @RouteURL("${app.name}")
-    @AwaitRoute(path = "/actuator/health")
+    @Inject
+    KubernetesClient kubernetesClient;
+
     private URL greetingBaseURI;
 
-    @Before
-    public void setup() {
+    @BeforeEach
+    public void setup() throws MalformedURLException {
+        // TODO: In Dekorate 1.7, we can inject Routes directly, so we won't need to do this:
+        Route route = kubernetesClient.adapt(OpenShiftClient.class).routes().withName("spring-boot-cache-greeting").get();
+        String protocol = route.getSpec().getTls() == null ? "http" : "https";
+        int port = "http".equals(protocol) ? 80 : 443;
+        greetingBaseURI = new URL(protocol, route.getSpec().getHost(), port, "/");
+
         clearCache();
     }
 
