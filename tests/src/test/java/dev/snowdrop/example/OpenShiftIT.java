@@ -19,12 +19,17 @@ package dev.snowdrop.example;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
+import org.awaitility.Awaitility;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 import io.dekorate.testing.annotation.Inject;
 import io.dekorate.testing.openshift.annotation.OpenshiftIntegrationTest;
@@ -35,6 +40,7 @@ import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 
 @OpenshiftIntegrationTest(deployEnabled = false, buildEnabled = false)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class OpenShiftIT {
 
     private static final String GREETING_PATH = "api/greeting";
@@ -45,7 +51,7 @@ public class OpenShiftIT {
 
     private URL greetingBaseURI;
 
-    @BeforeEach
+    @BeforeAll
     public void setup() throws MalformedURLException {
         // TODO: In Dekorate 1.7, we can inject Routes directly, so we won't need to do this:
         Route route = kubernetesClient.adapt(OpenShiftClient.class).routes().withName("spring-boot-cache-greeting").get();
@@ -53,7 +59,18 @@ public class OpenShiftIT {
         int port = "http".equals(protocol) ? 80 : 443;
         greetingBaseURI = new URL(protocol, route.getSpec().getHost(), port, "/");
 
-        clearCache();
+        // waits until the route is responding
+        Awaitility.await().atMost(30, TimeUnit.SECONDS).pollInterval(1, TimeUnit.SECONDS)
+                .untilAsserted(() -> assertEquals(200, getStatusCodeFromGreetingService()));
+    }
+
+    @BeforeEach
+    public void clearCache() {
+        given()
+                .baseUri(greetingBaseURI.toString())
+                .delete(CACHED_PATH)
+                .then()
+                .statusCode(204);
     }
 
     @Test
@@ -109,6 +126,15 @@ public class OpenShiftIT {
         assertCached(false);
     }
 
+    private int getStatusCodeFromGreetingService() {
+        return given()
+                .baseUri(greetingBaseURI.toString())
+                .get(GREETING_PATH)
+                .then()
+                .log().all()
+                .extract().statusCode();
+    }
+
     private String getMessageFromGreetingService() {
         final ExtractableResponse<Response> response =
                 given()
@@ -122,14 +148,6 @@ public class OpenShiftIT {
         assertThat(message).isNotEmpty();
 
         return message;
-    }
-
-    private void clearCache() {
-        given()
-            .baseUri(greetingBaseURI.toString())
-            .delete(CACHED_PATH)
-            .then()
-            .statusCode(204);
     }
 
     private void assertCached(boolean cached) {
