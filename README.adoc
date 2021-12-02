@@ -1,5 +1,3 @@
-image:https://circleci.com/gh/snowdrop/cache-example.svg?style=shield["CircleCI", link="https://circleci.com/gh/snowdrop/cache-example"]
-
 == Purpose
 
 The​ ​ purpose​ ​ of​ ​ this​ ​ use​ ​ case​ ​ is​ ​ to​ ​ demonstrate​ ​ how​ ​ to​ ​ use​ ​ Red​ ​ Hat​ ​ JBoss​ ​ Data​ ​ Grid​ ​ for
@@ -31,11 +29,12 @@ $ oc apply -f .openshiftio/cache.yml
 ----
 
 
-- Build and deploy the Spring Boot application using Dekorate
+- Build and deploy the Spring Boot applications using Dekorate
 
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-$ mvn clean verify -Popenshift -Ddekorate.deploy=true
+$ mvn clean verify -pl greeting-service -Popenshift -Ddekorate.deploy=true
+$ mvn clean verify -pl cute-name-service -Popenshift -Ddekorate.deploy=true
 ----
 
 - Open the UI of the `greeting-service`. The URL can be determined by executing
@@ -47,12 +46,28 @@ $ oc get route/spring-boot-cache-greeting --template={{.spec.host}}
 From the UI the user can invoke the `greeting-service` which in turn invokes the JBoss Datagrid and perhaps the `name-service`
 depending on the state of the cache
 
-- Execute the integration test to verify the behavior of the system
+- Execute the integration test using Dekorate to verify the behavior of the system
 [source,bash,options="nowrap",subs="attributes+"]
 ----
 $ oc delete project cache-example --ignore-not-found=true
 $ oc new-project cache-example
 $ oc apply -f .openshiftio/cache.yml
-$ mvn clean verify -Popenshift -Ddekorate.deploy=true
-$ mvn clean verify -pl tests -Popenshift-it
+$ sh run_tests_with_dekorate.sh
+----
+
+- Execute the integration test using S2i to verify the behavior of the system
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ oc delete project cache-example --ignore-not-found=true
+$ oc new-project cache-example
+$ oc apply -f .openshiftio/cache.yml
+$ oc create -f cute-name-service/.openshiftio/application.yaml
+$ oc new-app --template=spring-boot-cache-cutename -p SOURCE_REPOSITORY_URL="https://github.com/snowdrop/cache-example" -p SOURCE_REPOSITORY_REF=sb-2.4.x -p SOURCE_REPOSITORY_DIR=cute-name-service
+$ sleep 30 # needed in order to bypass the 'Pending' state
+$ timeout 300s bash -c 'while [[ $(oc get pod -o json | jq  ".items[] | select(.metadata.name | contains(\"build\"))  | .status  " | jq -rs "sort_by(.startTme) | last | .phase") == "Running" ]]; do sleep 20; done; echo ""'
+$ oc create -f greeting-service/.openshiftio/application.yaml
+$ oc new-app --template=spring-boot-cache-greeting -p SOURCE_REPOSITORY_URL="https://github.com/snowdrop/cache-example" -p SOURCE_REPOSITORY_REF=sb-2.4.x -p SOURCE_REPOSITORY_DIR=greeting-service
+$ sleep 30 # needed in order to bypass the 'Pending' state
+$ timeout 300s bash -c 'while [[ $(oc get pod -o json | jq  ".items[] | select(.metadata.name | contains(\"build\"))  | .status  " | jq -rs "sort_by(.startTme) | last | .phase") == "Running" ]]; do sleep 20; done; echo ""'
+$ sh run_tests_with_s2i.sh
 ----
