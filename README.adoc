@@ -51,8 +51,7 @@ depending on the state of the cache
 ----
 $ oc delete project cache-example --ignore-not-found=true
 $ oc new-project cache-example
-$ oc apply -f .openshiftio/cache.yml
-$ sh run_tests_with_dekorate.sh
+$ ./run_tests_with_dekorate.sh
 ----
 
 - Execute the integration test using S2i to verify the behavior of the system
@@ -60,14 +59,5 @@ $ sh run_tests_with_dekorate.sh
 ----
 $ oc delete project cache-example --ignore-not-found=true
 $ oc new-project cache-example
-$ oc apply -f .openshiftio/cache.yml
-$ oc create -f cute-name-service/.openshiftio/application.yaml
-$ oc new-app --template=spring-boot-cache-cutename -p SOURCE_REPOSITORY_URL="https://github.com/snowdrop/cache-example" -p SOURCE_REPOSITORY_REF=sb-2.4.x -p SOURCE_REPOSITORY_DIR=cute-name-service
-$ sleep 30 # needed in order to bypass the 'Pending' state
-$ timeout 300s bash -c 'while [[ $(oc get pod -o json | jq  ".items[] | select(.metadata.name | contains(\"build\"))  | .status  " | jq -rs "sort_by(.startTme) | last | .phase") == "Running" ]]; do sleep 20; done; echo ""'
-$ oc create -f greeting-service/.openshiftio/application.yaml
-$ oc new-app --template=spring-boot-cache-greeting -p SOURCE_REPOSITORY_URL="https://github.com/snowdrop/cache-example" -p SOURCE_REPOSITORY_REF=sb-2.4.x -p SOURCE_REPOSITORY_DIR=greeting-service
-$ sleep 30 # needed in order to bypass the 'Pending' state
-$ timeout 300s bash -c 'while [[ $(oc get pod -o json | jq  ".items[] | select(.metadata.name | contains(\"build\"))  | .status  " | jq -rs "sort_by(.startTme) | last | .phase") == "Running" ]]; do sleep 20; done; echo ""'
-$ sh run_tests_with_s2i.sh
+$ ./run_tests_with_s2i.sh "https://github.com/snowdrop/cache-example" sb-2.4.x
 ----
