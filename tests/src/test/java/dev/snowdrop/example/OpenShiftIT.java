@@ -70,6 +70,7 @@ public class OpenShiftIT {
                 .baseUri(greetingBaseURI.toString())
                 .delete(CACHED_PATH)
                 .then()
+                .log().all()
                 .statusCode(204);
     }
 
@@ -141,8 +142,9 @@ public class OpenShiftIT {
                   .baseUri(greetingBaseURI.toString())
                 .get(GREETING_PATH)
                 .then()
-                .statusCode(200)
-                .extract();
+                        .log().all()
+                        .statusCode(200)
+                        .extract();
 
         final String message = response.body().jsonPath().get("message");
         assertThat(message).isNotEmpty();
@@ -155,7 +157,8 @@ public class OpenShiftIT {
            .baseUri(greetingBaseURI.toString())
            .get(CACHED_PATH)
            .then()
-           .body("cached", is(cached));
+                .log().all()
+                .body("cached", is(cached));
     }
 
     private void waitForCacheToExpire(int seconds) {
