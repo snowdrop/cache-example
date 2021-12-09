@@ -1,11 +1,14 @@
+= Cache Spring Boot Example
+:toc: left
+
 == Purpose
 
-The​ ​ purpose​ ​ of​ ​ this​ ​ use​ ​ case​ ​ is​ ​ to​ ​ demonstrate​ ​ how​ ​ to​ ​ use​ ​ Red​ ​ Hat​ ​ JBoss​ ​ Data​ ​ Grid​ ​ for
-Openshift​ ​ as​ ​ a ​ ​ cache,​ ​ to​ ​ increase​ ​ the​ ​ response​ ​ time​ ​ of​ ​ applications.
-This​ ​ mission​ ​ covers:
+The purpose of this use case is to demonstrate how to use Red Hat JBoss Data Grid for
+Openshift as a  cache, to increase the response time of applications.
+This mission covers:
 
- * The​ ​ deployment​ ​ of​ ​ the​ ​ Red​ ​ Hat​ ​ JBoss​ ​ Data​ ​ Grid​ ​ on​ ​ OpenShift
- * How​ ​ applications​ ​ leverage​ ​ this​ ​ cache​ ​ service
+ * The deployment of the Red Hat JBoss Data Grid on OpenShift
+ * How applications leverage this cache service
 
 == Technical details
 
@@ -60,4 +63,32 @@ $ ./run_tests_with_dekorate.sh
 $ oc delete project cache-example --ignore-not-found=true
 $ oc new-project cache-example
 $ ./run_tests_with_s2i.sh "https://github.com/snowdrop/cache-example" sb-2.4.x
+----
+
+== Running Tests on OpenShift using Dekorate:
+
+[source,shell script]
+----
+sh run_tests_with_dekorate.sh
+----
+
+== Running Tests on OpenShift using S2i from Source:
+
+[source,shell script]
+----
+./run_tests_with_s2i.sh
+----
+
+This script can take 2 parameters referring to the repository and the branch to use to source the images from.
+
+[source,shell script]
+----
+./run_tests_with_s2i.sh "https://github.com/snowdrop/rest-http-example" branch-to-test
+----
+
+== Running Tests on Kubernetes with External Registry:
+
+[source,shell script]
+----
+mvn clean verify -Pkubernetes,kubernetes-it -Ddekorate.docker.registry=<url to your registry, example: quay.io> -Ddekorate.push=true
 ----
