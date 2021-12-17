@@ -83,7 +83,7 @@ This script can take 2 parameters referring to the repository and the branch to 
 
 [source,shell script]
 ----
-./run_tests_with_s2i.sh "https://github.com/snowdrop/rest-http-example" branch-to-test
+./run_tests_with_s2i.sh "https://github.com/snowdrop/cache-example" branch-to-test
 ----
 
 == Running Tests on Kubernetes with External Registry:
