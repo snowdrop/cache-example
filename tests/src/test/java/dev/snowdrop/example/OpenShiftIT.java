@@ -19,23 +19,16 @@ package dev.snowdrop.example;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.concurrent.TimeUnit;
 
-import org.awaitility.Awaitility;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
 import io.dekorate.testing.annotation.Inject;
+import io.dekorate.testing.annotation.Named;
 import io.dekorate.testing.openshift.annotation.OpenshiftIntegrationTest;
-import io.fabric8.kubernetes.client.KubernetesClient;
-import io.fabric8.openshift.api.model.Route;
-import io.fabric8.openshift.client.OpenShiftClient;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 
@@ -46,28 +39,14 @@ public class OpenShiftIT {
     private static final String GREETING_PATH = "api/greeting";
     private static final String CACHED_PATH = "api/cached";
 
+    @Named("spring-boot-cache-greeting")
     @Inject
-    KubernetesClient kubernetesClient;
-
-    private URL greetingBaseURI;
-
-    @BeforeAll
-    public void setup() throws MalformedURLException {
-        // TODO: In Dekorate 1.7, we can inject Routes directly, so we won't need to do this:
-        Route route = kubernetesClient.adapt(OpenShiftClient.class).routes().withName("spring-boot-cache-greeting").get();
-        String protocol = route.getSpec().getTls() == null ? "http" : "https";
-        int port = "http".equals(protocol) ? 80 : 443;
-        greetingBaseURI = new URL(protocol, route.getSpec().getHost(), port, "/");
-
-        // waits until the route is responding
-        Awaitility.await().atMost(30, TimeUnit.SECONDS).pollInterval(1, TimeUnit.SECONDS)
-                .untilAsserted(() -> assertEquals(200, getStatusCodeFromGreetingService()));
-    }
+    URL appUrl;
 
     @BeforeEach
     public void clearCache() {
         given()
-                .baseUri(greetingBaseURI.toString())
+                .baseUri(appUrl.toString())
                 .delete(CACHED_PATH)
                 .then()
                 .log().all()
@@ -129,7 +108,7 @@ public class OpenShiftIT {
 
     private int getStatusCodeFromGreetingService() {
         return given()
-                .baseUri(greetingBaseURI.toString())
+                .baseUri(appUrl.toString())
                 .get(GREETING_PATH)
                 .then()
                 .log().all()
@@ -139,7 +118,7 @@ public class OpenShiftIT {
     private String getMessageFromGreetingService() {
         final ExtractableResponse<Response> response =
                 given()
-                  .baseUri(greetingBaseURI.toString())
+                  .baseUri(appUrl.toString())
                 .get(GREETING_PATH)
                 .then()
                         .log().all()
@@ -154,7 +133,7 @@ public class OpenShiftIT {
 
     private void assertCached(boolean cached) {
         given()
-           .baseUri(greetingBaseURI.toString())
+           .baseUri(appUrl.toString())
            .get(CACHED_PATH)
            .then()
                 .log().all()

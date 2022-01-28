@@ -262,6 +262,7 @@ objects:
       app.kubernetes.io/connects-to: cute-name-service
     name: spring-boot-cache-greeting
   spec:
+    path: /
     port:
       targetPort: 8080
     to:
