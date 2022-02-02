@@ -17,7 +17,6 @@ What that means practically, is that the business code simply uses Spring's `@Ca
 
 == Deploying and interacting with the example
 
-
 - Create a new OpenShift project `cache-example` (or whatever you want to call it):
 
 [source,bash,options="nowrap",subs="attributes+"]
@@ -65,6 +64,26 @@ $ oc new-project cache-example
 $ ./run_tests_with_s2i.sh "https://github.com/snowdrop/cache-example" sb-2.4.x
 ----
 
+== Deploying application on OpenShift using Helm
+
+First, make sure you have installed the Helm command line and connected/logged to a kubernetes cluster.
+
+Then, you need to install the example by doing:
+
+[source,shell script]
+----
+helm install crud ./helm --set cute-name-service.s2i.source.repo=https://github.com/snowdrop/cache-example --set cute-name-service.s2i.source.ref=<branch-to-use> --set greeting-service.s2i.source.repo=https://github.com/snowdrop/cache-example --set greeting-service.s2i.source.ref=<branch-to-use>
+----
+
+**note**: Replace `<branch-to-use>` with one branch from `https://github.com/snowdrop/cache-example/branches/all`.
+
+And to uninstall the chart, execute:
+
+[source,shell script]
+----
+helm uninstall crud
+----
+
 == Running Tests on OpenShift using Dekorate:
 
 [source,shell script]
@@ -91,4 +110,18 @@ This script can take 2 parameters referring to the repository and the branch to 
 [source,shell script]
 ----
 mvn clean verify -Pkubernetes,kubernetes-it -Ddekorate.docker.registry=<url to your registry, example: quay.io> -Ddekorate.push=true
+----
+
+== Running Tests on OpenShift using Helm
+
+[source,shell script]
+----
+./run_tests_with_helm.sh
+----
+
+This script can take 2 parameters referring to the repository and the branch to use to source the images from.
+
+[source,shell script]
+----
+./run_tests_with_helm.sh "https://github.com/snowdrop/cache-example" branch-to-test
 ----

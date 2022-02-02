@@ -1,0 +1,26 @@
+cute-name-service:
+  name: spring-boot-cache-cutename
+  version: 2.5.8-1-SNAPSHOT
+  s2i:
+    env:
+      - name: MAVEN_ARGS_APPEND
+        value: "-pl cute-name-service"
+      - name: ARTIFACT_DIR
+        value: "cute-name-service/target"
+greeting-service:
+  name: spring-boot-cache-greeting
+  version: 2.5.8-1-SNAPSHOT
+  s2i:
+    env:
+      - name: MAVEN_ARGS_APPEND
+        value: "-pl greeting-service"
+      - name: ARTIFACT_DIR
+        value: "greeting-service/target"
+  env:
+    - name: service.name.baseURL
+      value: http://spring-boot-cache-cutename:8080
+    - name: infinispan.remote.server-list
+      value: cache-server:11222
+datagrid:
+  name: cache-server
+  image: registry.access.redhat.com/jboss-datagrid-7/datagrid72-openshift:1.0
