@@ -1,0 +1,9 @@
+dependencies:
+- name: spring-boot-example-app
+  repository: http://snowdrop.github.io/helm
+  version: 0.0.3
+- name: spring-boot-example-app
+  repository: http://snowdrop.github.io/helm
+  version: 0.0.3
+digest: sha256:4c7d47873f583241e7008e74741cabb62edc5260ad303ee8478419485639c70e
+generated: "2022-02-02T08:13:23.048400118+01:00"

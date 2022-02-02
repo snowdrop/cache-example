@@ -19,9 +19,13 @@ package dev.snowdrop.example;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
+import org.awaitility.Awaitility;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -42,6 +46,13 @@ public class OpenShiftIT {
     @Named("spring-boot-cache-greeting")
     @Inject
     URL appUrl;
+
+    @BeforeAll
+    public void setup() {
+        // waits until the route is responding
+        Awaitility.await().atMost(30, TimeUnit.SECONDS).pollInterval(1, TimeUnit.SECONDS)
+                .untilAsserted(() -> assertEquals(200, getStatusCodeFromGreetingService()));
+    }
 
     @BeforeEach
     public void clearCache() {
