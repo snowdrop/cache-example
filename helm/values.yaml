@@ -1,11 +1,9 @@
 cute-name-service:
   name: spring-boot-cache-cutename
   version: 2.5.8-1-SNAPSHOT
+  docker:
+    image: quay.io/snowdrop/spring-boot-cache-name-example:2.5.8
   s2i:
-    # Default s2i source repository
-    source:
-      repo: https://github.com/snowdrop/cache-example
-      ref: sb-2.5.x
     env:
       - name: MAVEN_ARGS_APPEND
         value: "-pl cute-name-service"
@@ -14,21 +12,19 @@ cute-name-service:
 greeting-service:
   name: spring-boot-cache-greeting
   version: 2.5.8-1-SNAPSHOT
-  s2i:
-    # Default s2i source repository
-    source:
-      repo: https://github.com/snowdrop/cache-example
-      ref: sb-2.5.x
-    env:
-      - name: MAVEN_ARGS_APPEND
-        value: "-pl greeting-service"
-      - name: ARTIFACT_DIR
-        value: "greeting-service/target"
+  docker:
+    image: quay.io/snowdrop/spring-boot-cache-greeting-example:2.5.8
   env:
     - name: service.name.baseURL
       value: http://spring-boot-cache-cutename:8080
     - name: infinispan.remote.server-list
       value: cache-server:11222
+  s2i:
+    env:
+      - name: MAVEN_ARGS_APPEND
+        value: "-pl greeting-service"
+      - name: ARTIFACT_DIR
+        value: "greeting-service/target"
 datagrid:
   name: cache-server
   image: registry.access.redhat.com/jboss-datagrid-7/datagrid72-openshift:1.0

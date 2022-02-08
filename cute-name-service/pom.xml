@@ -1,48 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>dev.snowdrop.example</groupId>
-        <artifactId>cache</artifactId>
-        <version>2.5.8-1-SNAPSHOT</version>
-    </parent>
+  <parent>
+    <groupId>dev.snowdrop.example</groupId>
+    <artifactId>cache</artifactId>
+    <version>2.5.8-1-SNAPSHOT</version>
+  </parent>
 
-    <artifactId>spring-boot-cache-cutename</artifactId>
+  <artifactId>spring-boot-cache-cutename</artifactId>
 
-    <name>Spring Boot - Cache Example - Cute Name Service</name>
-    <description>Spring Boot - Cache Example - Cute Name Service</description>
+  <name>Spring Boot - Cache Example - Cute Name Service</name>
+  <description>Spring Boot - Cache Example - Cute Name Service</description>
 
 
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
 
-        <!-- Test -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+    <!-- Test -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 
   <profiles>
-      <profile>
-          <id>openshift</id>
-          <dependencies>
-              <dependency>
-                  <groupId>io.dekorate</groupId>
-                  <artifactId>openshift-spring-starter</artifactId>
-              </dependency>
-          </dependencies>
-      </profile>
+    <profile>
+      <id>openshift</id>
+      <dependencies>
+        <dependency>
+          <groupId>io.dekorate</groupId>
+          <artifactId>openshift-spring-starter</artifactId>
+        </dependency>
+      </dependencies>
+    </profile>
+    <profile>
+      <id>kubernetes</id>
+      <dependencies>
+        <dependency>
+          <groupId>io.dekorate</groupId>
+          <artifactId>kubernetes-spring-starter</artifactId>
+        </dependency>
+      </dependencies>
+    </profile>
   </profiles>
 </project>
