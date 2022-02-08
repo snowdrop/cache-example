@@ -72,10 +72,30 @@ Then, you need to install the example by doing:
 
 [source,shell script]
 ----
-helm install cache ./helm --set cute-name-service.s2i.source.repo=https://github.com/snowdrop/cache-example --set cute-name-service.s2i.source.ref=<branch-to-use> --set greeting-service.s2i.source.repo=https://github.com/snowdrop/cache-example --set greeting-service.s2i.source.ref=<branch-to-use>
+helm install cache ./helm --set cute-name-service.route.expose=true --set cute-name-service.s2i.source.repo=https://github.com/snowdrop/cache-example --set cute-name-service.s2i.source.ref=<branch-to-use> --set greeting-service.route.expose=true --set greeting-service.s2i.source.repo=https://github.com/snowdrop/cache-example --set greeting-service.s2i.source.ref=<branch-to-use>
 ----
 
 **note**: Replace `<branch-to-use>` with one branch from `https://github.com/snowdrop/cache-example/branches/all`.
+
+And to uninstall the chart, execute:
+
+[source,shell script]
+----
+helm uninstall cache
+----
+
+== Deploying application on Kubernetes using Helm
+
+Requirements:
+- Have installed [the Helm command line](https://helm.sh/docs/intro/install/)
+- Have connected/logged to a kubernetes cluster
+
+You need to install the example by doing:
+
+[source,shell script]
+----
+helm install cache ./helm -n <k8s namespace> --set cute-name-service.ingress.host=<your k8s domain> --set greeting-service.ingress.host=<your k8s domain>
+----
 
 And to uninstall the chart, execute:
 
@@ -116,12 +136,34 @@ mvn clean verify -Pkubernetes,kubernetes-it -Ddekorate.docker.registry=<url to y
 
 [source,shell script]
 ----
-./run_tests_with_helm.sh
+./run_tests_with_helm_in_ocp.sh
 ----
 
 This script can take 2 parameters referring to the repository and the branch to use to source the images from.
 
 [source,shell script]
 ----
-./run_tests_with_helm.sh "https://github.com/snowdrop/cache-example" branch-to-test
+./run_tests_with_helm_in_ocp.sh "https://github.com/snowdrop/cache-example" branch-to-test
+----
+
+== Running Tests on Kubernetes using Helm
+
+First, you need to create the k8s namespace:
+
+[source,shell script]
+----
+kubectl create namespace <the k8s namespace>
+----
+
+Then, run the tests by specifying the container registry and the kubernetes namespace:
+[source,shell script]
+----
+./run_tests_with_helm_in_k8s.sh <your container registry: for example "quay.io/user"> <the k8s namespace>
+----
+
+For example:
+
+[source,shell script]
+----
+./run_tests_with_helm_in_k8s.sh "quay.io/user" "myNamespace"
 ----
