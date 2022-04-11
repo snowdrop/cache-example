@@ -7,7 +7,7 @@ metadata:
     app.kubernetes.io/name: greeting-service
     app.kubernetes.io/component: frontend
     app.openshift.io/runtime: rh-spring-boot
-    app.openshift.io/runtime-version: "SPRING_BOOT_VERSION"
+    app.openshift.io/runtime-version: "2.5.12"
   annotations:
     iconClass: icon-spring
     tags: spring-boot, cache, java, microservice
@@ -63,7 +63,7 @@ objects:
       app.kubernetes.io/name: greeting-service
       app.kubernetes.io/component: frontend
       app.openshift.io/runtime: rh-spring-boot
-      app.openshift.io/runtime-version: "SPRING_BOOT_VERSION"
+      app.openshift.io/runtime-version: "2.5.12"
     annotations:
       app.kubernetes.io/vcs-uri: git@github.com:snowdrop/cache-example.git
       app.kubernetes.io/connects-to: cute-name-service
@@ -87,7 +87,7 @@ objects:
       app.kubernetes.io/name: greeting-service
       app.kubernetes.io/component: frontend
       app.openshift.io/runtime: rh-spring-boot
-      app.openshift.io/runtime-version: "SPRING_BOOT_VERSION"
+      app.openshift.io/runtime-version: "2.5.12"
     annotations:
       app.kubernetes.io/vcs-uri: git@github.com:snowdrop/cache-example.git
       app.kubernetes.io/connects-to: cute-name-service
@@ -95,7 +95,7 @@ objects:
     output:
       to:
         kind: ImageStreamTag
-        name: spring-boot-cache-greeting:BOOSTER_VERSION
+        name: spring-boot-cache-greeting:2.5.12-2-redhat
     postCommit: {}
     resources: {}
     source:
@@ -134,13 +134,13 @@ objects:
     labels:
       app: spring-boot-cache-greeting
       provider: snowdrop
-      version: "BOOSTER_VERSION"
+      version: "2.5.12-2-redhat"
       group: dev.snowdrop.example
       app.kubernetes.io/part-of: cache-example
       app.kubernetes.io/name: greeting-service
       app.kubernetes.io/component: frontend
       app.openshift.io/runtime: rh-spring-boot
-      app.openshift.io/runtime-version: "SPRING_BOOT_VERSION"
+      app.openshift.io/runtime-version: "2.5.12"
     annotations:
       app.kubernetes.io/vcs-uri: git@github.com:snowdrop/cache-example.git
       app.kubernetes.io/connects-to: cute-name-service
@@ -161,13 +161,13 @@ objects:
     labels:
       app: spring-boot-cache-greeting
       provider: snowdrop
-      version: "BOOSTER_VERSION"
+      version: "2.5.12-2-redhat"
       group: dev.snowdrop.example
       app.kubernetes.io/part-of: cache-example
       app.kubernetes.io/name: greeting-service
       app.kubernetes.io/component: frontend
       app.openshift.io/runtime: rh-spring-boot
-      app.openshift.io/runtime-version: "SPRING_BOOT_VERSION"
+      app.openshift.io/runtime-version: "2.5.12"
     annotations:
       app.kubernetes.io/vcs-uri: git@github.com:snowdrop/cache-example.git
       app.kubernetes.io/connects-to: cute-name-service
@@ -188,13 +188,13 @@ objects:
         labels:
           app: spring-boot-cache-greeting
           provider: snowdrop
-          version: "BOOSTER_VERSION"
+          version: "2.5.12-2-redhat"
           group: dev.snowdrop.example
           app.kubernetes.io/part-of: cache-example
           app.kubernetes.io/name: greeting-service
           app.kubernetes.io/component: frontend
           app.openshift.io/runtime: rh-spring-boot
-          app.openshift.io/runtime-version: "SPRING_BOOT_VERSION"
+          app.openshift.io/runtime-version: "2.5.12"
         annotations:
           app.kubernetes.io/vcs-uri: git@github.com:snowdrop/cache-example.git
           app.kubernetes.io/connects-to: cute-name-service
@@ -207,7 +207,7 @@ objects:
                 fieldPath: metadata.namespace
           - name: service.name.baseURL
             value: http://spring-boot-cache-cutename:8080
-          image: spring-boot-cache-greeting:BOOSTER_VERSION
+          image: spring-boot-cache-greeting:2.5.12-2-redhat
           imagePullPolicy: IfNotPresent
           livenessProbe:
             httpGet:
@@ -242,7 +242,7 @@ objects:
         - spring-boot
         from:
           kind: ImageStreamTag
-          name: spring-boot-cache-greeting:BOOSTER_VERSION
+          name: spring-boot-cache-greeting:2.5.12-2-redhat
       type: ImageChange
 - apiVersion: v1
   kind: Route
@@ -250,13 +250,13 @@ objects:
     labels:
       app: spring-boot-cache-greeting
       provider: snowdrop
-      version: "BOOSTER_VERSION"
+      version: "2.5.12-2-redhat"
       group: dev.snowdrop.example
       app.kubernetes.io/part-of: cache-example
       app.kubernetes.io/name: greeting-service
       app.kubernetes.io/component: frontend
       app.openshift.io/runtime: rh-spring-boot
-      app.openshift.io/runtime-version: "SPRING_BOOT_VERSION"
+      app.openshift.io/runtime-version: "2.5.12"
     annotations:
       app.kubernetes.io/vcs-uri: git@github.com:snowdrop/cache-example.git
       app.kubernetes.io/connects-to: cute-name-service
