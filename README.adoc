@@ -15,6 +15,10 @@ This mission covers:
 The boosters demonstrates how Spring's Caching support can interact with the JBoss Datagrid caching server.
 What that means practically, is that the business code simply uses Spring's `@Cacheable` to cache return values
 
+== Prerequisites
+
+- JDK 11+ installed with JAVA_HOME configured appropriately
+
 == Deploying and interacting with the example
 
 - Create a new OpenShift project `cache-example` (or whatever you want to call it):
