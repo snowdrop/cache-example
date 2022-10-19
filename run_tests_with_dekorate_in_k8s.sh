@@ -29,4 +29,4 @@ if [[ $(waitFor "spring-boot-cache-greeting" "app.kubernetes.io/name") -eq 1 ]] 
 fi
 
 # 3.- Run Tests
-./mvnw -s .github/mvn-settings.xml verify -pl tests -Pkubernetes-it
+./mvnw -s .github/mvn-settings.xml verify -pl tests -Pkubernetes-it $MAVEN_OPTS
