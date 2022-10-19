@@ -16,8 +16,8 @@
 
 package dev.snowdrop.example.service;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.times;
@@ -58,7 +58,7 @@ public class CacheableNameServiceTest extends AbstractSpringCachingTest {
         //invoke the second time
         nameService.getName();
         //assert cache hit
-        verify(restTemplate, never()).getForObject(anyString(), any(Class.class));
+        verify(restTemplate, never()).getForObject(any(), any(Class.class));
 
         sleepLongEnoughForCacheToExpire();
 
@@ -69,7 +69,7 @@ public class CacheableNameServiceTest extends AbstractSpringCachingTest {
     }
 
     private void verifyCacheMiss() {
-        verify(restTemplate, times(1)).getForObject(anyString(), any(Class.class));
+        verify(restTemplate, times(1)).getForObject(any(String.class), eq(String.class));
     }
 
 }
