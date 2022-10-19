@@ -22,5 +22,5 @@ if [[ $(waitFor "spring-boot-cache-greeting" "app.kubernetes.io/name") -eq 1 ]] 
   exit 1
 fi
 
-# 3.- Run OpenShift Tests
+# 3.- Run Tests
 ./mvnw -s .github/mvn-settings.xml verify -pl tests -Popenshift-it

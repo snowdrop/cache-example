@@ -1,8 +1,8 @@
 cute-name-service:
   name: spring-boot-cache-cutename
-  version: 2.5.8-1-SNAPSHOT
+  version: 2.7-SNAPSHOT
   docker:
-    image: quay.io/snowdrop/spring-boot-cache-name-example:2.5.8
+    image: quay.io/snowdrop/spring-boot-cache-name-example:2.7
   s2i:
     env:
       - name: MAVEN_ARGS_APPEND
@@ -11,9 +11,9 @@ cute-name-service:
         value: "cute-name-service/target"
 greeting-service:
   name: spring-boot-cache-greeting
-  version: 2.5.8-1-SNAPSHOT
+  version: 2.7-SNAPSHOT
   docker:
-    image: quay.io/snowdrop/spring-boot-cache-greeting-example:2.5.8
+    image: quay.io/snowdrop/spring-boot-cache-greeting-example:2.7
   env:
     - name: service.name.baseURL
       value: http://spring-boot-cache-cutename:8080
